@@ -270,7 +270,7 @@ class Historic(ModelObserver):
         super().__init__()
         self.controller = None
 
-    def setController(self, controller):
+    def set_controller(self, controller):
         self.controller = controller
 
     def update(self):

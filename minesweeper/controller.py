@@ -80,5 +80,5 @@ class Controller:
 class ControllerObserver:
     def __init__(self, model):
         self.model = model
-        self.model.controller()
+        self.model.set_controller(self)
 
