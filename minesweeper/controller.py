@@ -75,3 +75,10 @@ class Controller:
     def register_player_name(self):
         name = self.view.inputBox()
         return name
+
+
+class ControllerObserver:
+    def __init__(self, model):
+        self.model = model
+        self.model.controller()
+

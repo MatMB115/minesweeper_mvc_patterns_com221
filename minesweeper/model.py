@@ -3,11 +3,31 @@ from abc import ABC, abstractmethod
 
 from cell import Cell
 
+"""Class to implements observable model"""
 
-class Model:
+
+class ModelObservable(ABC):
+    def __init__(self):
+        self.observers = []
+
+    @abstractmethod
+    def add_observer(self):
+        pass
+
+    @abstractmethod
+    def remove_observer(self):
+        pass
+
+    @abstractmethod
+    def notify(self):
+        pass
+
+
+class Model(ModelObservable):
     """Class with game logic."""
 
     def __init__(self):
+        super().__init__()
         self.flagWin = None
         self.flagged_cells = -1
         self.seconds_from_start = 1
@@ -219,19 +239,39 @@ class Model:
             self.playersMid.append(self.controller.register_player_name())
         else:
             self.playersHard.append(self.controller.register_player_name())
-        for player in self.playersEasy:
-            print(player)
-            print("________________")
-        for player in self.playersMid:
-            print(player)
-            print("________________")
-        for player in self.playersHard:
-            print(player)
-            print("________________")
+
+    def add_observer(self):
+        pass
+
+    def remove_observer(self):
+        pass
+
+    def notify(self):
+        pass
 
 
 """Implements Observer Pattern to Ranking and Historic of played games"""
 
 
-class GamesModel(ABC):
-    pass
+class ModelObserver(ABC):
+    def __init__(self):
+        self.playerEasy = []
+        self.playerMid = []
+        self.playerHard = []
+
+    @abstractmethod
+    def update(self):
+        pass
+
+
+class Historic(ModelObserver):
+
+    def __init__(self):
+        super().__init__()
+        self.controller = None
+
+    def setController(self, controller):
+        self.controller = controller
+
+    def update(self):
+        pass

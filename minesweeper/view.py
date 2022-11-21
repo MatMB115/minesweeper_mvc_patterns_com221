@@ -9,13 +9,14 @@ from PyQt5.QtCore import Qt
 class View(QMainWindow):
     """Create main GUI and process the events with controller"""
 
-    def __init__(self, controller, model):
+    def __init__(self, controller, controllerH, model):
         super().__init__()
         self.top_box = None
         self.gamemenu = None
         self.menubar = None
         self.main_widget = None
         self.controller = controller
+        self.controllerHist = controllerH
         self.controller.setView(self)
         self.controller.start_new_game()
         self.model = model
