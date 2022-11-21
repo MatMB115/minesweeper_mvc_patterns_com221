@@ -22,7 +22,9 @@ class Model:
         self.must_open_cells = None
         self.open_cells = None
         self.first_click = None
-        self.players = []
+        self.playersEasy = []
+        self.playersMid = []
+        self.playersHard = []
 
     def set_controller(self, controller):
         self.controller = controller
@@ -52,14 +54,14 @@ class Model:
         self.MINES_MAX = 3
 
     def new_game_mid(self):
-        self.FIELD_WIDTH = 10
-        self.FIELD_HEIGHT = 10
-        self.MINES_MAX = 5
+        self.FIELD_WIDTH = 16
+        self.FIELD_HEIGHT = 16
+        self.MINES_MAX = 40
 
     def new_game_hard(self):
-        self.FIELD_WIDTH = 15
-        self.FIELD_HEIGHT = 15
-        self.MINES_MAX = 10
+        self.FIELD_WIDTH = 30
+        self.FIELD_HEIGHT = 16
+        self.MINES_MAX = 99
 
     def create_field(self):
         # Creating field.
@@ -211,10 +213,21 @@ class Model:
                     self.flagged_cells -= 1
 
     def store_played_games(self):
-        self.players.append(self.controller.register_player_name())
-        for player in self.players:
+        if self.MINES_MAX == 3:
+            self.playersEasy.append(self.controller.register_player_name())
+        elif self.MINES_MAX == 40:
+            self.playersMid.append(self.controller.register_player_name())
+        else:
+            self.playersHard.append(self.controller.register_player_name())
+        for player in self.playersEasy:
             print(player)
-        print("________________")
+            print("________________")
+        for player in self.playersMid:
+            print(player)
+            print("________________")
+        for player in self.playersHard:
+            print(player)
+            print("________________")
 
 
 """Implements Observer Pattern to Ranking and Historic of played games"""
