@@ -8,6 +8,7 @@ class Model:
     """Class with game logic."""
 
     def __init__(self):
+        self.flagWin = None
         self.flagged_cells = -1
         self.seconds_from_start = 1
         self.controller = None
@@ -28,6 +29,7 @@ class Model:
 
     def new_game(self, game_level=0):
         """Starts the game at a certain difficulty level."""
+        self.flagWin = 0
         levels = [
             self.empty_func,
             self.new_game_junior,
@@ -45,7 +47,7 @@ class Model:
     def new_game_junior(self):
         self.FIELD_WIDTH = 6
         self.FIELD_HEIGHT = 6
-        self.MINES_MAX = 6
+        self.MINES_MAX = 3
 
     def create_field(self):
         # Creating field.
@@ -168,8 +170,9 @@ class Model:
         if self.must_open_cells <= self.open_cells:
             self.stop_game = True
             self.controller.set_win_button()
-            self.store_played_games("W")
-
+            if self.flagWin == 0:
+                self.flagWin = 1
+                self.store_played_games()
             return "Win"
         return "Game"
 
@@ -183,7 +186,6 @@ class Model:
                         cell.int_state = 12
                 elif not cell.mined and cell.state == "flagged":
                     cell.int_state = 14
-        self.store_played_games("F")
 
     def next_mark(self, x, y):
         if not self.stop_game:
@@ -196,11 +198,11 @@ class Model:
                 if old_state == "flagged":
                     self.flagged_cells -= 1
 
-    def store_played_games(self, result):
-        self.players.append((result, self.controller.register_player_name()))
-        """for result, player in self.players:
-            print(result + " - " + player)
-        print("________________")"""
+    def store_played_games(self):
+        self.players.append(self.controller.register_player_name())
+        for player in self.players:
+            print(player)
+        print("________________")
 
 
 """Implements Observer Pattern to Ranking and Historic of played games"""
