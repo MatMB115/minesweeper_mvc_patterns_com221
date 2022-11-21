@@ -1,5 +1,6 @@
 class Controller:
     """Controller class for the connection between Model and View."""
+
     def __init__(self, model):
         self.view = None
         self.model = model
@@ -50,6 +51,18 @@ class Controller:
     def start_new_game_easy(self):
         self.model.new_game(game_level=1)
         self.model.last_level = 1
+        self.set_fixed_size()
+        self.view.update()
+
+    def start_new_game_mid(self):
+        self.model.new_game(game_level=2)
+        self.model.last_level = 2
+        self.set_fixed_size()
+        self.view.update()
+
+    def start_new_game_hard(self):
+        self.model.new_game(game_level=3)
+        self.model.last_level = 3
         self.set_fixed_size()
         self.view.update()
 

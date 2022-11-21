@@ -32,7 +32,9 @@ class Model:
         self.flagWin = 0
         levels = [
             self.empty_func,
-            self.new_game_junior,
+            self.new_game_easy,
+            self.new_game_mid,
+            self.new_game_hard
         ]
         levels[game_level]()
         self.controller.set_start_button()
@@ -44,10 +46,20 @@ class Model:
         """When player did not change game level and we want play last one."""
         pass
 
-    def new_game_junior(self):
+    def new_game_easy(self):
         self.FIELD_WIDTH = 6
         self.FIELD_HEIGHT = 6
         self.MINES_MAX = 3
+
+    def new_game_mid(self):
+        self.FIELD_WIDTH = 10
+        self.FIELD_HEIGHT = 10
+        self.MINES_MAX = 5
+
+    def new_game_hard(self):
+        self.FIELD_WIDTH = 15
+        self.FIELD_HEIGHT = 15
+        self.MINES_MAX = 10
 
     def create_field(self):
         # Creating field.

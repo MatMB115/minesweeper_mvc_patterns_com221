@@ -47,6 +47,16 @@ class View(QMainWindow):
             self.controller.start_new_game_easy)
         self.gamemenu.addAction(easy_level)
 
+        mid_level = QAction("&Mid mode", self)
+        mid_level.triggered.connect(
+            self.controller.start_new_game_mid)
+        self.gamemenu.addAction(mid_level)
+
+        hard_level = QAction("&Hard mode", self)
+        hard_level.triggered.connect(
+            self.controller.start_new_game_hard)
+        self.gamemenu.addAction(hard_level)
+
     def create_top_box(self):
         self.top_box = TopBox(self.controller, self.model)
 
