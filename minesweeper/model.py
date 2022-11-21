@@ -49,6 +49,18 @@ class Model(ModelObservable):
     def set_controller(self, controller):
         self.controller = controller
 
+    def get_FIELD_WIDTH(self):
+        return self.FIELD_WIDTH
+
+    def get_FIELD_HEIGHT(self):
+        return self.FIELD_HEIGHT
+
+    def get_MINES_MAX(self):
+        return self.MINES_MAX
+
+    def get_field(self):
+        return self.field
+
     def new_game(self, game_level=0):
         """Starts the game at a certain difficulty level."""
         self.flagWin = 0
@@ -65,7 +77,7 @@ class Model(ModelObservable):
         self.create_field()
 
     def empty_func(self):
-        """When player did not change game level and we want play last one."""
+        """When player did not change game level and we play last one."""
         pass
 
     def new_game_easy(self):

@@ -13,7 +13,7 @@ if __name__ == '__main__':
     historic = Historic()
     controller = Controller(model)
     controllerHist = ControllerObserver(historic)
-    window = View(controller, controllerHist, model) #retirar model da view
+    window = View(controller, controllerHist)
 
     window.show()
     sys.exit(game.exec_())

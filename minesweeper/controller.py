@@ -1,5 +1,5 @@
 class Controller:
-    """Controller class for the connection between Model and View."""
+    """Controller class for the connection between field Model and View."""
 
     def __init__(self, model):
         self.view = None
@@ -39,6 +39,18 @@ class Controller:
 
     def get_status(self):
         return self.model.game_status()
+
+    def get_field_width(self):
+        return self.model.get_FIELD_WIDTH()
+
+    def get_field_height(self):
+        return self.model.get_FIELD_HEIGHT()
+
+    def get_mines_max(self):
+        return self.model.get_MINES_MAX()
+
+    def get_field(self):
+        return self.model.get_field()
 
     def start_new_game(self):
         self.model.new_game(game_level=1)

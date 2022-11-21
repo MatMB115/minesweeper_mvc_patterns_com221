@@ -9,7 +9,7 @@ from PyQt5.QtCore import Qt
 class View(QMainWindow):
     """Create main GUI and process the events with controller"""
 
-    def __init__(self, controller, controllerH, model):
+    def __init__(self, controller, controllerH):
         super().__init__()
         self.top_box = None
         self.gamemenu = None
@@ -19,13 +19,12 @@ class View(QMainWindow):
         self.controllerHist = controllerH
         self.controller.setView(self)
         self.controller.start_new_game()
-        self.model = model
         self.createMainUI()
 
     def createMainUI(self):
         self.setGeometry(400, 200, 100, 100)
-        self.setFixedWidth(32 * self.model.FIELD_WIDTH + 20)
-        self.setFixedHeight(32 * self.model.FIELD_HEIGHT + 90)
+        self.setFixedWidth(32 * self.controller.get_field_width() + 20)
+        self.setFixedHeight(32 * self.controller.get_field_height() + 90)
         self.setWindowTitle("Minesweeper")
         self.setWindowIcon(QIcon("img/flagged.gif"))
         self.create_menubar()
@@ -59,7 +58,7 @@ class View(QMainWindow):
         self.gamemenu.addAction(hard_level)
 
     def create_top_box(self):
-        self.top_box = TopBox(self.controller, self.model)
+        self.top_box = TopBox(self.controller)
 
     def inputBox(self):
         name, done1 = QInputDialog.getText(
@@ -70,33 +69,31 @@ class View(QMainWindow):
 class TopBox(QVBoxLayout):
     """Class witch display play button and amount of flagged cells"""
 
-    def __init__(self, controller, model):
+    def __init__(self, controller):
         super().__init__()
         self.field = None
         self.top_panel = None
         self.controller = controller
-        self.model = model
         self.create_top_panel()
         self.create_field()
 
     def create_top_panel(self):
-        self.top_panel = TopPanel(self.controller, self.model)
+        self.top_panel = TopPanel(self.controller)
         self.addLayout(self.top_panel)
 
     def create_field(self):
-        self.field = Field(self.controller, self.model, self.top_panel)
+        self.field = Field(self.controller, self.top_panel)
         self.addWidget(self.field)
 
 
 class TopPanel(QHBoxLayout):
     """Class witch contains start-game button and mines counter."""
 
-    def __init__(self, controller, model):
+    def __init__(self, controller):
         super().__init__()
         self.start_btn = None
         self.board = None
         self.controller = controller
-        self.model = model
         self.setAlignment(Qt.AlignHCenter)
         self.setSpacing(56)
         self.create_mines_counter()
@@ -104,7 +101,7 @@ class TopPanel(QHBoxLayout):
 
     def create_mines_counter(self):
         self.board = MinesBoard(numbers=3)
-        self.board.set(self.model.MINES_MAX)
+        self.board.set(self.controller.get_mines_max())
         self.addLayout(self.board)
 
     def create_start_button(self):
@@ -113,7 +110,7 @@ class TopPanel(QHBoxLayout):
 
 
 class StartButton(QLabel):
-    """Start game button"""
+    """Draw start game button"""
 
     def __init__(self, controller):
         self.controller = controller
@@ -149,7 +146,7 @@ class StartButton(QLabel):
 
 
 class Board(QHBoxLayout):
-    """Class for converting integers to beautiful scoreboards."""
+    """Class for converting integers to scoreboards."""
 
     def __init__(self, numbers=3):
         super().__init__()
@@ -196,22 +193,21 @@ class MinesBoard(Board):
 
 
 class Field(QWidget):
-    """Class witch display game field."""
+    """Display a created field"""
 
-    def __init__(self, controller, model, top_panel):
+    def __init__(self, controller, top_panel):
         super().__init__()
         self.painter = None
         self.assets = None
         self.controller = controller
-        self.model = model
         self.top_panel = top_panel
         self.SIZE = 32
         self.last_x = -1
         self.last_y = -1
         self.last_clicked = -1
         self.load_assets()
-        self.setFixedWidth(self.SIZE * self.model.FIELD_WIDTH)
-        self.setFixedHeight(self.SIZE * self.model.FIELD_HEIGHT)
+        self.setFixedWidth(self.SIZE * self.controller.get_field_width())
+        self.setFixedHeight(self.SIZE * self.controller.get_field_height())
 
     def load_assets(self):
         # field cells assets loading.
@@ -242,12 +238,13 @@ class Field(QWidget):
         y = int(_y / self.SIZE)
         if self.test_mouse_coordinates(_x, _y):
             if self.controller.get_status() == "Game":
-                self.last_clicked = self.model.field[y][x].int_state
+                field = self.controller.get_field()
+                self.last_clicked = field[y][x].int_state
                 self.last_x = x
                 self.last_y = y
-                if self.model.field[y][x].int_state == 9:
+                if field[y][x].int_state == 9:
                     if event.button() == Qt.LeftButton:
-                        self.model.field[y][x].int_state = 0
+                        field[y][x].int_state = 0
                         self.top_panel.start_btn.set_uhoh()
                     self.update()
 
@@ -265,7 +262,8 @@ class Field(QWidget):
                     if event.button() == Qt.RightButton:
                         self.controller.right_click(x, y)
                 else:
-                    self.model.field[self.last_y][self.last_x].int_state = self.last_clicked
+                    field = self.controller.get_field()
+                    field[self.last_y][self.last_x].int_state = self.last_clicked
                 self.top_panel.start_btn.set_start()
             status = self.controller.get_status()
             if status == "Win":
@@ -276,16 +274,16 @@ class Field(QWidget):
         self.update()
 
     def test_mouse_coordinates(self, x, y):
-        # TODO: Write tests for this method.
-        return (0 <= x <= self.SIZE * self.model.FIELD_WIDTH and
-                0 <= y <= self.SIZE * self.model.FIELD_HEIGHT)
+        return (0 <= x <= self.SIZE * self.controller.get_field_width() and
+                0 <= y <= self.SIZE * self.controller.get_field_height())
 
     def paintEvent(self, event):
 
         self.painter = QPainter(self)
-        for y in range(self.model.FIELD_HEIGHT):
-            for x in range(self.model.FIELD_WIDTH):
-                asset = self.assets[self.model.field[y][x].int_state]
+        for y in range(self.controller.get_field_height()):
+            for x in range(self.controller.get_field_width()):
+                field = self.controller.get_field()
+                asset = self.assets[field[y][x].int_state]
                 self.painter.drawPixmap(x * self.SIZE, y * self.SIZE, asset)
 
         self.painter.end()
