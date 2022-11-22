@@ -1,34 +1,12 @@
 from random import randint
-from abc import ABC, abstractmethod
-
 from cell import Cell
 
-"""Class to implements observable model"""
 
-
-class ModelObservable(ABC):
-    def __init__(self):
-        self.observers = []
-
-    @abstractmethod
-    def add_observer(self):
-        pass
-
-    @abstractmethod
-    def remove_observer(self):
-        pass
-
-    @abstractmethod
-    def notify(self):
-        pass
-
-
-class Model(ModelObservable):
-    """Class with game logic."""
+class Model:
+    """Class who implements the logic of game"""
 
     def __init__(self):
-        super().__init__()
-        self.flagWin = None
+        self.flag_win = None
         self.flagged_cells = -1
         self.seconds_from_start = 1
         self.controller = None
@@ -46,6 +24,7 @@ class Model(ModelObservable):
         self.playersMid = []
         self.playersHard = []
 
+    """Getter and setter"""
     def set_controller(self, controller):
         self.controller = controller
 
@@ -61,9 +40,13 @@ class Model(ModelObservable):
     def get_field(self):
         return self.field
 
+    def get_cell(self, x, y):
+        return self.field[y][x]
+
+    """Starts the game at a certain difficulty level."""
     def new_game(self, game_level=0):
-        """Starts the game at a certain difficulty level."""
-        self.flagWin = 0
+        """Store the callback functions in list"""
+        self.flag_win = 0
         levels = [
             self.empty_func,
             self.new_game_easy,
@@ -77,7 +60,7 @@ class Model(ModelObservable):
         self.create_field()
 
     def empty_func(self):
-        """When player did not change game level and we play last one."""
+        """When player did not change game level and play last one."""
         pass
 
     def new_game_easy(self):
@@ -121,9 +104,6 @@ class Model(ModelObservable):
             if not self.field[_y][_x].mined:
                 mines_ammout += 1
                 self.field[_y][_x].mined = True
-
-    def get_cell(self, x, y):
-        return self.field[y][x]
 
     def open_cell(self, x, y):
         if not self.stop_game:
@@ -216,8 +196,8 @@ class Model(ModelObservable):
         if self.must_open_cells <= self.open_cells:
             self.stop_game = True
             self.controller.set_win_button()
-            if self.flagWin == 0:
-                self.flagWin = 1
+            if self.flag_win == 0:
+                self.flag_win = 1
                 self.store_played_games()
             return "Win"
         return "Game"
@@ -251,39 +231,3 @@ class Model(ModelObservable):
             self.playersMid.append(self.controller.register_player_name())
         else:
             self.playersHard.append(self.controller.register_player_name())
-
-    def add_observer(self):
-        pass
-
-    def remove_observer(self):
-        pass
-
-    def notify(self):
-        pass
-
-
-"""Implements Observer Pattern to Ranking and Historic of played games"""
-
-
-class ModelObserver(ABC):
-    def __init__(self):
-        self.playerEasy = []
-        self.playerMid = []
-        self.playerHard = []
-
-    @abstractmethod
-    def update(self):
-        pass
-
-
-class Historic(ModelObserver):
-
-    def __init__(self):
-        super().__init__()
-        self.controller = None
-
-    def set_controller(self, controller):
-        self.controller = controller
-
-    def update(self):
-        pass
