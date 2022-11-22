@@ -78,12 +78,22 @@ class Controller:
         self.set_fixed_size()
         self.view.update()
 
+    def start_new_game_random(self):
+        self.model.new_game(game_level=4)
+        self.model.last_level = 4
+        self.set_fixed_size()
+        self.view.update()
+
     def set_fixed_size(self):
         self.view.top_box.field.setFixedWidth(32 * self.model.FIELD_WIDTH)
         self.view.top_box.field.setFixedHeight(32 * self.model.FIELD_HEIGHT)
         self.view.setFixedWidth(32 * self.model.FIELD_WIDTH + 20)
         self.view.setFixedHeight(32 * self.model.FIELD_HEIGHT + 90)
 
-    def register_player_name(self):
-        name = self.view.inputBox()
-        return name
+    def get_text_input(self, title, info):
+        text = self.view.input_box_text(title, info)
+        return text
+
+    def get_int_input(self, title, info):
+        num = self.view.input_box_int(title, info)
+        return num

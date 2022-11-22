@@ -56,13 +56,27 @@ class View(QMainWindow):
             self.controller.start_new_game_hard)
         self.gamemenu.addAction(hard_level)
 
+        random_level = QAction("&Random mode", self)
+        random_level.triggered.connect(
+            self.controller.start_new_game_random)
+        self.gamemenu.addAction(random_level)
+
     def create_top_box(self):
         self.top_box = TopBox(self.controller)
 
-    def inputBox(self):
-        name, done1 = QInputDialog.getText(
-            self, 'Register', 'Enter your name:')
-        return name
+    def input_box_text(self, title, info):
+        user_input, status = QInputDialog.getText(self, title, info)
+        if status:
+            return user_input
+        else:
+            exit()
+
+    def input_box_int(self, title, info):
+        metric_num, status = QInputDialog.getInt(self, title, info, min=1)
+        if status:
+            return metric_num
+        else:
+            exit()
 
 
 class TopBox(QVBoxLayout):

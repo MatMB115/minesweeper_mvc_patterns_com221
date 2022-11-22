@@ -23,6 +23,7 @@ class Model:
         self.playersEasy = []
         self.playersMid = []
         self.playersHard = []
+        self.playersRandom = []
 
     """Getter and setter"""
     def set_controller(self, controller):
@@ -51,7 +52,8 @@ class Model:
             self.empty_func,
             self.new_game_easy,
             self.new_game_mid,
-            self.new_game_hard
+            self.new_game_hard,
+            self.new_game_random
         ]
         levels[game_level]()
         self.controller.set_start_button()
@@ -77,6 +79,11 @@ class Model:
         self.FIELD_WIDTH = 30
         self.FIELD_HEIGHT = 16
         self.MINES_MAX = 99
+
+    def new_game_random(self):
+        self.FIELD_WIDTH = self.controller.get_int_input("Random Field", "Insert width:")
+        self.FIELD_HEIGHT = self.controller.get_int_input("Random Field", "Insert height:")
+        self.MINES_MAX = self.controller.get_int_input("Random Field", "Insert mines:")
 
     def create_field(self):
         # Creating field.
@@ -226,8 +233,11 @@ class Model:
 
     def store_played_games(self):
         if self.MINES_MAX == 3:
-            self.playersEasy.append(self.controller.register_player_name())
+            self.playersEasy.append(self.controller.get_text_input("Noobie mode", "Insert your name"))
         elif self.MINES_MAX == 40:
-            self.playersMid.append(self.controller.register_player_name())
+            self.playersMid.append(self.controller.get_text_input("Average mode", "Insert your name"))
+        elif self.MINES_MAX == 99:
+            self.playersHard.append(self.controller.get_text_input("Respect mode", "Insert your name"))
         else:
-            self.playersHard.append(self.controller.register_player_name())
+            self.playersRandom.append(self.controller.get_text_input("Crazy mode", "Insert your name"))
+
