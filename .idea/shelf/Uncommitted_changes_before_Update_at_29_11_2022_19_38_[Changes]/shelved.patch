@@ -1,0 +1,171 @@
+Index: minesweeper/controller.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>class Controller:\n    \"\"\"Controller class for the connection between field Model and View.\"\"\"\n\n    def __init__(self, model):\n        self.view = None\n        self.model = model\n        self.model.set_controller(self)\n\n    def setView(self, view):\n        self.view = view\n\n    def left_click(self, x, y):\n        self.model.open_cell(x, y)\n        status = self.get_status()\n        if status == \"Win\":\n            self.view.top_box.top_panel.start_btn.set_won()\n        elif status == \"Lose\":\n            self.view.top_box.top_panel.start_btn.set_lost()\n\n    def right_click(self, x, y):\n        self.model.next_mark(x, y)\n        self.set_mines_board(self.model.MINES_MAX - self.model.flagged_cells)\n\n    def set_start_button(self):\n        try:\n            self.view.top_box.top_panel.start_btn.set_start()\n        except:\n            pass\n\n    def set_win_button(self):\n        try:\n            self.view.top_box.top_panel.start_btn.set_won()\n        except:\n            pass\n\n    def set_mines_board(self, mines):\n        self.view.top_box.top_panel.board.set(mines)\n        self.view.update()\n\n    def get_status(self):\n        return self.model.game_status()\n\n    def get_field_width(self):\n        return self.model.get_FIELD_WIDTH()\n\n    def get_field_height(self):\n        return self.model.get_FIELD_HEIGHT()\n\n    def get_mines_max(self):\n        return self.model.get_MINES_MAX()\n\n    def get_field(self):\n        return self.model.get_field()\n\n    def start_new_game(self):\n        self.model.new_game(game_level=1)\n        self.view.update()\n\n    def start_new_game_smile(self):\n        self.model.new_game(game_level=0)\n        self.view.update()\n\n    def start_new_game_easy(self):\n        self.model.new_game(game_level=1)\n        self.model.last_level = 1\n        self.set_fixed_size()\n        self.view.update()\n\n    def start_new_game_mid(self):\n        self.model.new_game(game_level=2)\n        self.model.last_level = 2\n        self.set_fixed_size()\n        self.view.update()\n\n    def start_new_game_hard(self):\n        self.model.new_game(game_level=3)\n        self.model.last_level = 3\n        self.set_fixed_size()\n        self.view.update()\n\n    def start_new_game_random(self):\n        self.model.new_game(game_level=4)\n        self.model.last_level = 4\n        self.set_fixed_size()\n        self.view.update()\n\n    def set_fixed_size(self):\n        self.view.top_box.field.setFixedWidth(32 * self.model.FIELD_WIDTH)\n        self.view.top_box.field.setFixedHeight(32 * self.model.FIELD_HEIGHT)\n        self.view.setFixedWidth(32 * self.model.FIELD_WIDTH + 20)\n        self.view.setFixedHeight(32 * self.model.FIELD_HEIGHT + 90)\n\n    def get_text_input(self, title, info):\n        text = self.view.input_box_text(title, info)\n        return text\n\n    def get_int_input(self, title, info):\n        num = self.view.input_box_int(title, info)\n        return num\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/minesweeper/controller.py b/minesweeper/controller.py
+--- a/minesweeper/controller.py	(revision e1b9b025514f0806fa66b78d2ee2b34de87e8095)
++++ b/minesweeper/controller.py	(date 1669761382773)
+@@ -97,3 +97,6 @@
+     def get_int_input(self, title, info):
+         num = self.view.input_box_int(title, info)
+         return num
++
++    def add_timer(self):
++        self.model.seconds_from_start += 1
+\ No newline at end of file
+Index: minesweeper/main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import sys\n\nfrom PyQt5.QtWidgets import QApplication\n\nfrom view import View\nfrom controller import Controller\nfrom model import Model\n\nif __name__ == '__main__':\n    game = QApplication(sys.argv)\n\n    model = Model()\n    controller = Controller(model)\n    window = View(controller)\n\n    window.show()\n    sys.exit(game.exec_())\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/minesweeper/main.py b/minesweeper/main.py
+--- a/minesweeper/main.py	(revision e1b9b025514f0806fa66b78d2ee2b34de87e8095)
++++ b/minesweeper/main.py	(date 1669761382773)
+@@ -7,11 +7,11 @@
+ from model import Model
+ 
+ if __name__ == '__main__':
+-    game = QApplication(sys.argv)
++    game_main_window = QApplication(sys.argv)
+ 
+     model = Model()
+     controller = Controller(model)
+     window = View(controller)
+ 
+     window.show()
+-    sys.exit(game.exec_())
++    sys.exit(game_main_window.exec_())
+Index: minesweeper/model.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from random import randint\nfrom cell import Cell\n\n\nclass Model:\n    \"\"\"Class who implements the logic of game\"\"\"\n\n    def __init__(self):\n        self.flag_win = None\n        self.flagged_cells = -1\n        self.seconds_from_start = 1\n        self.controller = None\n        self.FIELD_WIDTH = None\n        self.MINES_MAX = None\n        self.FIELD_HEIGHT = None\n        self.checked = None\n        self.field = None\n        self.stop_game = None\n        self.is_game_over = None\n        self.must_open_cells = None\n        self.open_cells = None\n        self.first_click = None\n        self.playersEasy = []\n        self.playersMid = []\n        self.playersHard = []\n        self.playersRandom = []\n\n    \"\"\"Getter and setter\"\"\"\n    def set_controller(self, controller):\n        self.controller = controller\n\n    def get_FIELD_WIDTH(self):\n        return self.FIELD_WIDTH\n\n    def get_FIELD_HEIGHT(self):\n        return self.FIELD_HEIGHT\n\n    def get_MINES_MAX(self):\n        return self.MINES_MAX\n\n    def get_field(self):\n        return self.field\n\n    def get_cell(self, x, y):\n        return self.field[y][x]\n\n    \"\"\"Starts the game at a certain difficulty level.\"\"\"\n    def new_game(self, game_level=0):\n        \"\"\"Store the callback functions in list\"\"\"\n        self.flag_win = 0\n        levels = [\n            self.empty_func,\n            self.new_game_easy,\n            self.new_game_mid,\n            self.new_game_hard,\n            self.new_game_random\n        ]\n        levels[game_level]()\n        self.controller.set_start_button()\n        if self.flagged_cells != -1:\n            self.controller.set_mines_board(self.MINES_MAX)\n        self.create_field()\n\n    def empty_func(self):\n        \"\"\"When player did not change game level and play last one.\"\"\"\n        pass\n\n    def new_game_easy(self):\n        self.FIELD_WIDTH = 6\n        self.FIELD_HEIGHT = 6\n        self.MINES_MAX = 3\n\n    def new_game_mid(self):\n        self.FIELD_WIDTH = 16\n        self.FIELD_HEIGHT = 16\n        self.MINES_MAX = 40\n\n    def new_game_hard(self):\n        self.FIELD_WIDTH = 30\n        self.FIELD_HEIGHT = 16\n        self.MINES_MAX = 99\n\n    def new_game_random(self):\n        self.FIELD_WIDTH = self.controller.get_int_input(\"Random Field\", \"Insert width:\")\n        self.FIELD_HEIGHT = self.controller.get_int_input(\"Random Field\", \"Insert height:\")\n        self.MINES_MAX = self.controller.get_int_input(\"Random Field\", \"Insert mines:\")\n\n    def create_field(self):\n        # Creating field.\n        self.first_click = True\n        self.seconds_from_start = 1\n        self.flagged_cells = 0\n        self.open_cells = 0\n        self.must_open_cells = (self.FIELD_WIDTH * self.FIELD_HEIGHT\n                                - self.MINES_MAX)\n        self.is_game_over = False\n        self.stop_game = False\n        self.field = []\n        for y in range(self.FIELD_HEIGHT):\n            _xrow = []\n            for x in range(self.FIELD_WIDTH):\n                cell = Cell(x, y)\n                _xrow.append(cell)\n            self.field.append(_xrow)\n\n        # Setting mines at field.\n        mines_ammout = 0\n        while mines_ammout < self.MINES_MAX:\n            _x = randint(0, self.FIELD_WIDTH - 1)\n            _y = randint(0, self.FIELD_HEIGHT - 1)\n            if not self.field[_y][_x].mined:\n                mines_ammout += 1\n                self.field[_y][_x].mined = True\n\n    def open_cell(self, x, y):\n        if not self.stop_game:\n            if self.first_click:\n                self.first_click = False\n            cell = self.get_cell(x, y)\n            # Check if the cell is not mined.\n            last_state = cell.state\n            cell.open()\n            if cell.state == \"opened\" and last_state != cell.state:\n                self.open_cells += 1\n                self.checked = []\n                if not cell.mined:\n                    mines_number = self.check_neighbors(cell)\n                    cell.int_state = mines_number\n            if cell.state == \"opened\":\n                if cell.mined:\n                    # If this cell was mined game over.\n                    cell.state = \"opened\"\n                    self.is_game_over = True\n                    self.stop_game = True\n                else:\n                    pass\n\n            if self.is_game_over:\n                self.game_over()\n\n    def check_neighbors(self, cell):\n        neighbors_mines = 0\n        self.checked.append(cell)\n        if self.is_mined(cell, cell.x - 1, cell.y - 1): neighbors_mines += 1\n        if self.is_mined(cell, cell.x, cell.y - 1): neighbors_mines += 1\n        if self.is_mined(cell, cell.x + 1, cell.y - 1): neighbors_mines += 1\n        if self.is_mined(cell, cell.x - 1, cell.y): neighbors_mines += 1\n        if self.is_mined(cell, cell.x + 1, cell.y): neighbors_mines += 1\n        if self.is_mined(cell, cell.x - 1, cell.y + 1): neighbors_mines += 1\n        if self.is_mined(cell, cell.x, cell.y + 1): neighbors_mines += 1\n        if self.is_mined(cell, cell.x + 1, cell.y + 1): neighbors_mines += 1\n        if neighbors_mines == 0:\n            self.open_neighbors(cell)\n            pass\n        return neighbors_mines\n\n    def open_neighbors(self, cell):\n        self.open_one_neighbor(cell, cell.x - 1, cell.y - 1)\n        self.open_one_neighbor(cell, cell.x, cell.y - 1)\n        self.open_one_neighbor(cell, cell.x + 1, cell.y - 1)\n        self.open_one_neighbor(cell, cell.x - 1, cell.y)\n        self.open_one_neighbor(cell, cell.x + 1, cell.y)\n        self.open_one_neighbor(cell, cell.x - 1, cell.y + 1)\n        self.open_one_neighbor(cell, cell.x, cell.y + 1)\n        self.open_one_neighbor(cell, cell.x + 1, cell.y + 1)\n\n    def open_one_neighbor(self, old_cell, x, y):\n        try:\n            if old_cell.x == 0 and x == -1:\n                return False\n            if old_cell.x == self.FIELD_WIDTH - 1 and x == 1:\n                return False\n            if old_cell.y == 0 and y == -1:\n                return False\n            if old_cell.y == self.FIELD_HEIGHT - 1 and y == 1:\n                return False\n            cell = self.get_cell(x, y)\n            if cell.state != \"opened\":\n                cell.open()\n                self.open_cells += 1\n                if cell not in self.checked:\n                    cell.int_state = self.check_neighbors(cell)\n        except:\n            pass\n\n    def is_mined(self, old_cell, x, y):\n        try:\n            if old_cell.x == 0 and x == -1:\n                return False\n            if old_cell.x == self.FIELD_WIDTH - 1 and x == 1:\n                return False\n            if old_cell.y == 0 and y == -1:\n                return False\n            if old_cell.y == self.FIELD_HEIGHT - 1 and y == 1:\n                return False\n            return self.get_cell(x, y).mined\n        except:\n            return False\n\n    def game_status(self):\n        if self.is_game_over:\n            return \"Lose\"\n        if self.must_open_cells <= self.open_cells:\n            self.stop_game = True\n            self.controller.set_win_button()\n            if self.flag_win == 0:\n                self.flag_win = 1\n                self.store_played_games()\n            return \"Win\"\n        return \"Game\"\n\n    def game_over(self):\n        for row in self.field:\n            for cell in row:\n                if cell.mined and cell.state != \"flagged\":\n                    if cell.state == \"opened\":\n                        cell.int_state = 13\n                    else:\n                        cell.int_state = 12\n                elif not cell.mined and cell.state == \"flagged\":\n                    cell.int_state = 14\n\n    def next_mark(self, x, y):\n        if not self.stop_game:\n            cell = self.get_cell(x, y)\n            old_state = cell.state\n            cell.next_mark()\n            if cell.state == \"flagged\":\n                self.flagged_cells += 1\n            else:\n                if old_state == \"flagged\":\n                    self.flagged_cells -= 1\n\n    def store_played_games(self):\n        if self.MINES_MAX == 3:\n            self.playersEasy.append(self.controller.get_text_input(\"Noobie mode\", \"Insert your name\"))\n        elif self.MINES_MAX == 40:\n            self.playersMid.append(self.controller.get_text_input(\"Average mode\", \"Insert your name\"))\n        elif self.MINES_MAX == 99:\n            self.playersHard.append(self.controller.get_text_input(\"Respect mode\", \"Insert your name\"))\n        else:\n            self.playersRandom.append(self.controller.get_text_input(\"Crazy mode\", \"Insert your name\"))\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/minesweeper/model.py b/minesweeper/model.py
+--- a/minesweeper/model.py	(revision e1b9b025514f0806fa66b78d2ee2b34de87e8095)
++++ b/minesweeper/model.py	(date 1669761382773)
+@@ -44,6 +44,9 @@
+     def get_cell(self, x, y):
+         return self.field[y][x]
+ 
++    def get_seconds_from_start(self):
++        return self.seconds_from_start
++
+     """Starts the game at a certain difficulty level."""
+     def new_game(self, game_level=0):
+         """Store the callback functions in list"""
+@@ -66,9 +69,9 @@
+         pass
+ 
+     def new_game_easy(self):
+-        self.FIELD_WIDTH = 6
+-        self.FIELD_HEIGHT = 6
+-        self.MINES_MAX = 3
++        self.FIELD_WIDTH = 9
++        self.FIELD_HEIGHT = 9
++        self.MINES_MAX = 10
+ 
+     def new_game_mid(self):
+         self.FIELD_WIDTH = 16
+Index: minesweeper/view.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import sys\n\nfrom PyQt5.QtWidgets import (QApplication, QWidget, QHBoxLayout, QVBoxLayout, QLabel, QAction, QMainWindow,\n                             qApp, QInputDialog)\nfrom PyQt5.QtGui import QIcon, QPainter, QPixmap\nfrom PyQt5.QtCore import Qt\n\n\nclass View(QMainWindow):\n    \"\"\"Create main GUI and process the events with controller\"\"\"\n\n    def __init__(self, controller):\n        super().__init__()\n        self.top_box = None\n        self.gamemenu = None\n        self.menubar = None\n        self.main_widget = None\n        self.controller = controller\n        self.controller.setView(self)\n        self.controller.start_new_game()\n        self.createMainUI()\n\n    def createMainUI(self):\n        self.setGeometry(400, 200, 100, 100)\n        self.setFixedWidth(32 * self.controller.get_field_width() + 20)\n        self.setFixedHeight(32 * self.controller.get_field_height() + 90)\n        self.setWindowTitle(\"Minesweeper\")\n        self.setWindowIcon(QIcon(\"img/flagged.gif\"))\n        self.create_menubar()\n        self.create_top_box()\n        self.main_widget = QWidget()\n        self.setCentralWidget(self.main_widget)\n        self.main_widget.setLayout(self.top_box)\n        self.top_box.setAlignment(Qt.AlignCenter)\n\n    def create_menubar(self):\n        self.menubar = self.menuBar()\n        self.gamemenu = self.menubar.addMenu(\"&Game\")\n        exit_action = QAction(\"&Exit\", self)\n        exit_action.setShortcut(\"Ctrl+q\")\n        exit_action.triggered.connect(qApp.exit)\n        self.menubar.addAction(exit_action)\n\n        easy_level = QAction(\"&Easy mode\", self)\n        easy_level.triggered.connect(\n            self.controller.start_new_game_easy)\n        self.gamemenu.addAction(easy_level)\n\n        mid_level = QAction(\"&Mid mode\", self)\n        mid_level.triggered.connect(\n            self.controller.start_new_game_mid)\n        self.gamemenu.addAction(mid_level)\n\n        hard_level = QAction(\"&Hard mode\", self)\n        hard_level.triggered.connect(\n            self.controller.start_new_game_hard)\n        self.gamemenu.addAction(hard_level)\n\n        random_level = QAction(\"&Random mode\", self)\n        random_level.triggered.connect(\n            self.controller.start_new_game_random)\n        self.gamemenu.addAction(random_level)\n\n    def create_top_box(self):\n        self.top_box = TopBox(self.controller)\n\n    def input_box_text(self, title, info):\n        user_input, status = QInputDialog.getText(self, title, info)\n        if status:\n            return user_input\n        else:\n            exit()\n\n    def input_box_int(self, title, info):\n        metric_num, status = QInputDialog.getInt(self, title, info, min=1)\n        if status:\n            return metric_num\n        else:\n            exit()\n\n\nclass TopBox(QVBoxLayout):\n    \"\"\"Class witch display play button and amount of flagged cells\"\"\"\n\n    def __init__(self, controller):\n        super().__init__()\n        self.field = None\n        self.top_panel = None\n        self.controller = controller\n        self.create_top_panel()\n        self.create_field()\n\n    def create_top_panel(self):\n        self.top_panel = TopPanel(self.controller)\n        self.addLayout(self.top_panel)\n\n    def create_field(self):\n        self.field = Field(self.controller, self.top_panel)\n        self.addWidget(self.field)\n\n\nclass TopPanel(QHBoxLayout):\n    \"\"\"Class witch contains start-game button and mines counter.\"\"\"\n\n    def __init__(self, controller):\n        super().__init__()\n        self.start_btn = None\n        self.board = None\n        self.controller = controller\n        self.setAlignment(Qt.AlignHCenter)\n        self.setSpacing(56)\n        self.create_mines_counter()\n        self.create_start_button()\n\n    def create_mines_counter(self):\n        self.board = MinesBoard(numbers=3)\n        self.board.set(self.controller.get_mines_max())\n        self.addLayout(self.board)\n\n    def create_start_button(self):\n        self.start_btn = StartButton(self.controller)\n        self.addWidget(self.start_btn)\n\n\nclass StartButton(QLabel):\n    \"\"\"Draw start game button\"\"\"\n\n    def __init__(self, controller):\n        self.controller = controller\n        self.smiles = None\n        super().__init__()\n        self.load_smiles()\n        self.set_start()\n\n    def set_start(self):\n        self.setPixmap(self.smiles[0])\n\n    def set_lost(self):\n        self.setPixmap(self.smiles[1])\n\n    def set_uhoh(self):\n        self.setPixmap(self.smiles[2])\n\n    def set_won(self):\n        self.setPixmap(self.smiles[3])\n\n    def load_smiles(self):\n        # start-game button icons loading.\n        self.smiles = []\n        for file in [\"\", \"lost\", \"uhoh\", \"won\"]:\n            _asset = QPixmap(\"img/smiley{}.gif\".format(file))\n            _asset = _asset.scaled(44, 44)\n            self.smiles.append(_asset)\n\n    def mousePressEvent(self, event):\n        if event.button() == Qt.LeftButton:\n            self.controller.start_new_game_smile()\n            self.set_start()\n\n\nclass Board(QHBoxLayout):\n    \"\"\"Class for converting integers to scoreboards.\"\"\"\n\n    def __init__(self, numbers=3):\n        super().__init__()\n        self.digits = None\n        self.numbers = None\n        self.load_digits()\n        self.init_board(numbers)\n\n    def init_board(self, numbers):\n        self.setSpacing(0)\n        self.numbers = []\n        for number in range(numbers):\n            label = QLabel(\"\")\n            label.setPixmap(self.digits[0])\n            self.numbers.append(label)\n            self.addWidget(label)\n\n    def load_digits(self):\n        self.digits = []\n        for i in range(11):\n            _asset = QPixmap(\"img/digit{}.gif\".format(i))\n            _asset = _asset.scaled(25, 25, Qt.KeepAspectRatioByExpanding)\n            self.digits.append(_asset)\n\n    def set(self, number: int) -> bool:\n        minus = False\n        if number < 0:\n            minus = True\n            number = number * (-1)\n        if len(str(number)) > len(self.numbers): return False\n        k = 0\n        for _number in self.numbers[::-1]:\n            if k < len(str(number)):\n                k += 1\n                _number.setPixmap(self.digits[int(str(number)[-k])])\n            else:\n                _number.setPixmap(self.digits[0])\n        if minus:\n            self.numbers[0].setPixmap(self.digits[10])\n\n\nclass MinesBoard(Board):\n    pass\n\n\nclass Field(QWidget):\n    \"\"\"Display a created field\"\"\"\n\n    def __init__(self, controller, top_panel):\n        super().__init__()\n        self.painter = None\n        self.assets = None\n        self.controller = controller\n        self.top_panel = top_panel\n        self.SIZE = 32\n        self.last_x = -1\n        self.last_y = -1\n        self.last_clicked = -1\n        self.load_assets()\n        self.setFixedWidth(self.SIZE * self.controller.get_field_width())\n        self.setFixedHeight(self.SIZE * self.controller.get_field_height())\n\n    def load_assets(self):\n        # field cells assets loading.\n        self.assets = []\n        for i in range(9):\n            _asset = QPixmap(\"img/open{}.gif\".format(i))\n            _asset = _asset.scaled(self.SIZE, self.SIZE, Qt.IgnoreAspectRatio)\n            self.assets.append(_asset)\n\n        files = [\n            \"blank\",  # 9\n            \"flagged\",  # 10\n            \"question\",  # 11\n            \"mine\",  # 12\n            \"mineclicked\",  # 13\n            \"misflagged\",  # 14\n        ]\n\n        for file in files:\n            _asset = QPixmap(\"img/{}.gif\".format(file))  # index 9\n            _asset = _asset.scaled(self.SIZE, self.SIZE, Qt.IgnoreAspectRatio)\n            self.assets.append(_asset)\n\n    def mousePressEvent(self, event):\n        _x = event.pos().x()\n        _y = event.pos().y()\n        x = int(_x / self.SIZE)\n        y = int(_y / self.SIZE)\n        if self.test_mouse_coordinates(_x, _y):\n            if self.controller.get_status() == \"Game\":\n                field = self.controller.get_field()\n                self.last_clicked = field[y][x].int_state\n                self.last_x = x\n                self.last_y = y\n                if field[y][x].int_state == 9:\n                    if event.button() == Qt.LeftButton:\n                        field[y][x].int_state = 0\n                        self.top_panel.start_btn.set_uhoh()\n                    self.update()\n\n    def mouseReleaseEvent(self, event):\n        _x = event.pos().x()\n        _y = event.pos().y()\n        x = int(_x / self.SIZE)\n        y = int(_y / self.SIZE)\n        if self.test_mouse_coordinates(_x, _y):\n            status = self.controller.get_status()\n            if status == \"Game\":\n                if self.last_x == x and self.last_y == y:\n                    if event.button() == Qt.LeftButton:\n                        self.controller.left_click(x, y)\n                    if event.button() == Qt.RightButton:\n                        self.controller.right_click(x, y)\n                else:\n                    field = self.controller.get_field()\n                    field[self.last_y][self.last_x].int_state = self.last_clicked\n                self.top_panel.start_btn.set_start()\n            status = self.controller.get_status()\n            if status == \"Win\":\n                self.top_panel.start_btn.set_won()\n            if status == \"Lose\":\n                self.top_panel.start_btn.set_lost()\n\n        self.update()\n\n    def test_mouse_coordinates(self, x, y):\n        return (0 <= x <= self.SIZE * self.controller.get_field_width() and\n                0 <= y <= self.SIZE * self.controller.get_field_height())\n\n    def paintEvent(self, event):\n\n        self.painter = QPainter(self)\n        for y in range(self.controller.get_field_height()):\n            for x in range(self.controller.get_field_width()):\n                field = self.controller.get_field()\n                asset = self.assets[field[y][x].int_state]\n                self.painter.drawPixmap(x * self.SIZE, y * self.SIZE, asset)\n\n        self.painter.end()\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/minesweeper/view.py b/minesweeper/view.py
+--- a/minesweeper/view.py	(revision e1b9b025514f0806fa66b78d2ee2b34de87e8095)
++++ b/minesweeper/view.py	(date 1669761382773)
+@@ -1,9 +1,11 @@
+ import sys
++from random import randint
++from copy import deepcopy
+ 
+-from PyQt5.QtWidgets import (QApplication, QWidget, QHBoxLayout, QVBoxLayout, QLabel, QAction, QMainWindow,
++from PyQt5.QtWidgets import (QApplication, QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QLabel, QAction, QMainWindow,
+                              qApp, QInputDialog)
+-from PyQt5.QtGui import QIcon, QPainter, QPixmap
+-from PyQt5.QtCore import Qt
++from PyQt5.QtGui import QIcon, QPainter, QPolygon, QPixmap, QImage
++from PyQt5.QtCore import QPoint, QRect, Qt, QBasicTimer
+ 
+ 
+ class View(QMainWindow):
+@@ -72,7 +74,7 @@
+             exit()
+ 
+     def input_box_int(self, title, info):
+-        metric_num, status = QInputDialog.getInt(self, title, info, min=1)
++        metric_num, status = QInputDialog.getInt(self, title, info, min=6)
+         if status:
+             return metric_num
+         else:
+@@ -80,7 +82,7 @@
+ 
+ 
+ class TopBox(QVBoxLayout):
+-    """Class witch display play button and amount of flagged cells"""
++    """Class witch display play button, timer and amount of flagged cells"""
+ 
+     def __init__(self, controller):
+         super().__init__()
+@@ -100,10 +102,12 @@
+ 
+ 
+ class TopPanel(QHBoxLayout):
+-    """Class witch contains start-game button and mines counter."""
++    """Class witch contains start-game button, timer and mines counter."""
+ 
+     def __init__(self, controller):
+         super().__init__()
++        self.qtimer = None
++        self.timer = None
+         self.start_btn = None
+         self.board = None
+         self.controller = controller
+@@ -111,6 +115,27 @@
+         self.setSpacing(56)
+         self.create_mines_counter()
+         self.create_start_button()
++        self.create_timer()
++
++    def create_timer(self):
++        self.timer = Timer(numbers=3)
++        self.timer.set(0)
++        self.addLayout(self.timer)
++
++    def run_timer(self):
++        self.qtimer = QBasicTimer()
++        self.timer.set(1)
++        self.qtimer.start(1000, self)
++
++    def stop_timer(self):
++        self.qtimer.stop()
++
++    def clear_timer(self):
++        self.timer.set(0)
++
++    def timerEvent(self, e):
++        self.controller.add_timer += 1
++        self.timer.set(self.controller.get_seconds())
+ 
+     def create_mines_counter(self):
+         self.board = MinesBoard(numbers=3)
+@@ -201,6 +226,10 @@
+             self.numbers[0].setPixmap(self.digits[10])
+ 
+ 
++class Timer(Board):
++    pass
++
++
+ class MinesBoard(Board):
+     pass
+ 

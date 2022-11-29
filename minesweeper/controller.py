@@ -52,6 +52,9 @@ class Controller:
     def get_field(self):
         return self.model.get_field()
 
+    def get_seconds(self):
+        return self.model.get_seconds_from_start()
+
     def start_new_game(self):
         self.model.new_game(game_level=1)
         self.view.update()
@@ -97,6 +100,9 @@ class Controller:
     def get_int_input(self, title, info):
         num = self.view.input_box_int(title, info)
         return num
+
+    def add_seconds(self):
+        self.model.seconds_from_start += 1
 
     def create_timer(self):
         self.view.top_box.top_panel.run_timer()

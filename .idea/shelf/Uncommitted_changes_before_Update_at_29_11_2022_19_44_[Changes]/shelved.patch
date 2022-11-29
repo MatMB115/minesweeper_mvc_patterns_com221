@@ -1,0 +1,12 @@
+Index: minesweeper/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/minesweeper/.gitignore b/minesweeper/.gitignore
+new file mode 100644
+--- /dev/null	(date 1669761817340)
++++ b/minesweeper/.gitignore	(date 1669761817340)
+@@ -0,0 +1,2 @@
++__pychache__
++.vscode

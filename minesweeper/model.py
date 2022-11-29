@@ -26,6 +26,7 @@ class Model:
         self.playersRandom = []
 
     """Getter and setter"""
+
     def set_controller(self, controller):
         self.controller = controller
 
@@ -44,7 +45,11 @@ class Model:
     def get_cell(self, x, y):
         return self.field[y][x]
 
+    def get_seconds_from_start(self):
+        return self.seconds_from_start
+
     """Starts the game at a certain difficulty level."""
+
     def new_game(self, game_level=0):
         """Store the callback functions in list"""
         self.flag_win = 0
@@ -63,16 +68,15 @@ class Model:
         if self.flagged_cells != -1:
             self.controller.set_mines_board(self.MINES_MAX)
         self.create_field()
-        
 
     def empty_func(self):
         """When player did not change game level and play last one."""
         pass
 
     def new_game_easy(self):
-        self.FIELD_WIDTH = 6
-        self.FIELD_HEIGHT = 6
-        self.MINES_MAX = 3
+        self.FIELD_WIDTH = 9
+        self.FIELD_HEIGHT = 9
+        self.MINES_MAX = 10
 
     def new_game_mid(self):
         self.FIELD_WIDTH = 16
@@ -204,14 +208,14 @@ class Model:
 
     def game_status(self):
         if self.is_game_over:
-            self.contoller.stop_timer()
+            self.controller.stop_timer()
             return "Lose"
         if self.must_open_cells <= self.open_cells:
             self.stop_game = True
             self.controller.set_win_button()
             if self.flag_win == 0:
                 self.flag_win = 1
-                self.contoller.stop_timer()
+                self.controller.stop_timer()
                 self.store_played_games()
             return "Win"
         return "Game"
@@ -247,4 +251,3 @@ class Model:
             self.playersHard.append(self.controller.get_text_input("Respect mode", "Insert your name"))
         else:
             self.playersRandom.append(self.controller.get_text_input("Crazy mode", "Insert your name"))
-
