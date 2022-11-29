@@ -1,5 +1,6 @@
 from random import randint
 from cell import Cell
+from abc import ABC, abstractmethod
 
 
 class Model:
@@ -251,3 +252,19 @@ class Model:
             self.playersHard.append(self.controller.get_text_input("Respect mode", "Insert your name"))
         else:
             self.playersRandom.append(self.controller.get_text_input("Crazy mode", "Insert your name"))
+
+
+class Strategy(ABC):
+    @abstractmethod
+    def create_file(self):
+        pass
+
+
+class to_json(Strategy):
+    def create_file(self, ):
+        pass
+
+
+class to_csv(Strategy):
+    def create_file(self):
+        pass

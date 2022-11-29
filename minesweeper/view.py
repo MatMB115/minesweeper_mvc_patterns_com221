@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5.QtWidgets import (QApplication, QWidget, QHBoxLayout, QVBoxLayout, QLabel, QAction, QMainWindow,
+from PyQt5.QtWidgets import (QApplication, QWidget, QLabel, QAction, QMainWindow,
                              qApp, QInputDialog, QVBoxLayout, QHBoxLayout)
 from PyQt5.QtGui import QIcon, QPainter, QPixmap
 from PyQt5.QtCore import Qt, QBasicTimer
@@ -108,10 +108,10 @@ class TopPanel(QHBoxLayout):
         self.timer = None
         self.start_btn = None
         self.board = None
-        # self.timer = None
+        self.timer = None
         self.controller = controller
         self.setAlignment(Qt.AlignHCenter)
-        self.setSpacing(56)
+        self.setSpacing(12)
         self.create_mines_counter()
         self.create_start_button()
         self.create_timer()

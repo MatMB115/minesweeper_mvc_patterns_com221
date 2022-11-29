@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="refatorando, add random mode e organizando a view" />
+    <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="erro corrigido, pateta errou nome da funcao">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minesweeper/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minesweeper/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/view.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -167,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669083198254</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="erro corrigido, pateta errou nome da funcao">
+      <created>1669762774948</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1669762774949</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -205,6 +216,7 @@
     <MESSAGE value="removendo os componentes da model na view (utilizados para facilitar algumas manipulacoes na GUI)" />
     <MESSAGE value="removendo observer e finalizando versao basica da jogo" />
     <MESSAGE value="refatorando, add random mode e organizando a view" />
-    <option name="LAST_COMMIT_MESSAGE" value="refatorando, add random mode e organizando a view" />
+    <MESSAGE value="erro corrigido, pateta errou nome da funcao" />
+    <option name="LAST_COMMIT_MESSAGE" value="erro corrigido, pateta errou nome da funcao" />
   </component>
 </project>
