@@ -101,7 +101,7 @@ class Controller:
         num = self.view.input_box_int(title, info)
         return num
 
-    def add_seconds(self):
+    def add_timer(self):
         self.model.seconds_from_start += 1
 
     def create_timer(self):
