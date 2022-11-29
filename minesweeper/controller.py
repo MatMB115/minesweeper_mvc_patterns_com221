@@ -97,3 +97,18 @@ class Controller:
     def get_int_input(self, title, info):
         num = self.view.input_box_int(title, info)
         return num
+
+    def create_timer(self):
+        self.view.top_box.top_panel.run_timer()
+
+    def stop_timer(self):
+        try:
+            self.view.top_box.top_panel.stop_timer()
+        except:
+            pass
+
+    def clear_timer(self):
+        try:
+            self.view.top_box.top_panel.clear_timer()
+        except:
+            pass

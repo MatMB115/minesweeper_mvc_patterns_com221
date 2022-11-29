@@ -1,10 +1,9 @@
 import sys
 
 from PyQt5.QtWidgets import (QApplication, QWidget, QHBoxLayout, QVBoxLayout, QLabel, QAction, QMainWindow,
-                             qApp, QInputDialog)
+                             qApp, QInputDialog, QVBoxLayout, QHBoxLayout)
 from PyQt5.QtGui import QIcon, QPainter, QPixmap
-from PyQt5.QtCore import Qt
-
+from PyQt5.QtCore import Qt, QBasicTimer
 
 class View(QMainWindow):
     """Create main GUI and process the events with controller"""
@@ -19,7 +18,7 @@ class View(QMainWindow):
         self.controller.setView(self)
         self.controller.start_new_game()
         self.createMainUI()
-
+       
     def createMainUI(self):
         self.setGeometry(400, 200, 100, 100)
         self.setFixedWidth(32 * self.controller.get_field_width() + 20)
@@ -106,11 +105,35 @@ class TopPanel(QHBoxLayout):
         super().__init__()
         self.start_btn = None
         self.board = None
+        #self.timer = None
         self.controller = controller
         self.setAlignment(Qt.AlignHCenter)
         self.setSpacing(56)
         self.create_mines_counter()
         self.create_start_button()
+        self.create_timer()
+        
+        
+    def create_timer(self):
+        self.timer = Timer(numbers=3)
+        self.timer.set(0)
+        self.addLayout(self.timer)
+
+    def run_timer(self):
+        self.qtimer = QBasicTimer()
+        self.timer.set(1)
+        self.qtimer.start(1000, self)
+
+    def stop_timer(self):
+        self.qtimer.stop()
+
+    def clear_timer(self):
+        self.timer.set(0)
+
+    def timerEvent(self, e):
+        self.model.seconds_from_start += 1
+        self.timer.set(self.model.seconds_from_start)
+
 
     def create_mines_counter(self):
         self.board = MinesBoard(numbers=3)
@@ -221,6 +244,8 @@ class Field(QWidget):
         self.load_assets()
         self.setFixedWidth(self.SIZE * self.controller.get_field_width())
         self.setFixedHeight(self.SIZE * self.controller.get_field_height())
+        self.create_timer = True
+
 
     def load_assets(self):
         # field cells assets loading.
@@ -300,3 +325,7 @@ class Field(QWidget):
                 self.painter.drawPixmap(x * self.SIZE, y * self.SIZE, asset)
 
         self.painter.end()
+
+        
+class Timer(Board):
+	pass

@@ -57,9 +57,13 @@ class Model:
         ]
         levels[game_level]()
         self.controller.set_start_button()
+        self.controller.stop_timer()
+        self.controller.clear_timer()
+        self.controller.set_start_button()
         if self.flagged_cells != -1:
             self.controller.set_mines_board(self.MINES_MAX)
         self.create_field()
+        
 
     def empty_func(self):
         """When player did not change game level and play last one."""
@@ -115,6 +119,7 @@ class Model:
     def open_cell(self, x, y):
         if not self.stop_game:
             if self.first_click:
+                self.controller.create_timer()
                 self.first_click = False
             cell = self.get_cell(x, y)
             # Check if the cell is not mined.
@@ -199,12 +204,14 @@ class Model:
 
     def game_status(self):
         if self.is_game_over:
+            self.contoller.stop_timer()
             return "Lose"
         if self.must_open_cells <= self.open_cells:
             self.stop_game = True
             self.controller.set_win_button()
             if self.flag_win == 0:
                 self.flag_win = 1
+                self.contoller.stop_timer()
                 self.store_played_games()
             return "Win"
         return "Game"
