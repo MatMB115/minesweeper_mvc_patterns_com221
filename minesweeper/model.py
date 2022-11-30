@@ -25,6 +25,7 @@ class Model:
         self.playersMid = []
         self.playersHard = []
         self.playersRandom = []
+        self.save = Strategy
 
     """Getter and setter"""
 
@@ -245,13 +246,33 @@ class Model:
 
     def store_played_games(self):
         if self.MINES_MAX == 3:
-            self.playersEasy.append(self.controller.get_text_input("Noobie mode", "Insert your name"))
+            nome = self.controller.get_text_input("Noobie mode", "Insert your name")
+            time = self.seconds_from_start
+            self.playersEasy.append(Player(nome, time))
         elif self.MINES_MAX == 40:
-            self.playersMid.append(self.controller.get_text_input("Average mode", "Insert your name"))
+            nome = self.controller.get_text_input("Average mode", "Insert your name")
+            time = self.seconds_from_start
+            self.playersMid.append(Player(nome, time))
         elif self.MINES_MAX == 99:
-            self.playersHard.append(self.controller.get_text_input("Respect mode", "Insert your name"))
+            nome = self.controller.get_text_input("Respect mode", "Insert your name")
+            time = self.seconds_from_start
+            self.playersHard.append(Player(nome, time))
         else:
-            self.playersRandom.append(self.controller.get_text_input("Crazy mode", "Insert your name"))
+            nome = self.controller.get_text_input("Crazy mode", "Insert your name")
+            time = self.seconds_from_start
+            self.playersRandom.append(Player(nome, time))
+
+
+class Player:
+    def __init__(self, nome, time):
+        self.nome = nome
+        self.time = time
+
+    def get_nome(self):
+        return self.nome
+
+    def get_time(self):
+        return self.time
 
 
 class Strategy(ABC):

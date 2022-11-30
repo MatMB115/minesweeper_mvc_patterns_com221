@@ -118,3 +118,12 @@ class Controller:
             self.view.top_box.top_panel.clear_timer()
         except:
             pass
+
+    def save_as_json(self):
+        pass
+
+    def save_as_csv(self):
+        pass
+
+    def save_as_xml(self):
+        pass

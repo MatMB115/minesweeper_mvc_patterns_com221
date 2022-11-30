@@ -11,6 +11,7 @@ class View(QMainWindow):
 
     def __init__(self, controller):
         super().__init__()
+        self.savemenu = None
         self.top_box = None
         self.gamemenu = None
         self.menubar = None
@@ -36,6 +37,7 @@ class View(QMainWindow):
     def create_menubar(self):
         self.menubar = self.menuBar()
         self.gamemenu = self.menubar.addMenu("&Game")
+        self.savemenu = self.menubar.addMenu("&Save")
         exit_action = QAction("&Exit", self)
         exit_action.setShortcut("Ctrl+q")
         exit_action.triggered.connect(qApp.exit)
@@ -60,6 +62,18 @@ class View(QMainWindow):
         random_level.triggered.connect(
             self.controller.start_new_game_random)
         self.gamemenu.addAction(random_level)
+
+        save_json = QAction("to JSON", self)
+        save_json.triggered.connect(self.controller.save_as_json)
+        self.savemenu.addAction(save_json)
+
+        save_csv = QAction("to CSV", self)
+        save_csv.triggered.connect(self.controller.save_as_csv)
+        self.savemenu.addAction(save_csv)
+
+        save_xml = QAction("to XML", self)
+        save_xml.triggered.connect(self.controller.save_as_xml)
+        self.savemenu.addAction(save_xml)
 
     def create_top_box(self):
         self.top_box = TopBox(self.controller)

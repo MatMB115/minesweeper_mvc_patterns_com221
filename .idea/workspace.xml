@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="erro corrigido, pateta errou nome da funcao">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minesweeper/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minesweeper/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minesweeper/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/view.py" afterDir="false" />
     </list>
