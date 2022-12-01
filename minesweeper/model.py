@@ -2,6 +2,7 @@ from random import randint
 from cell import Cell
 from abc import ABC, abstractmethod
 import json
+import csv
 
 
 class Model:
@@ -319,18 +320,55 @@ class To_json(TypeFile):
             json_dict["Random"] = rand_dict
 
         json_obj = json.dumps(json_dict, indent=4)
-        with open("historico.json", "a") as outfile:
+        with open("historico.json", "w") as outfile:
             outfile.write(json_obj)
 
 
 class To_csv(TypeFile):
     def create_file(self, model):
-        pass
+        field_names = ['Nome', 'Tempo de Jogo']
+        results = []
+        if len(model.playersEasy) != 0:
+            easy_dict = {}
+            for player in model.playersEasy:
+                easy_dict[player.get_nome()] = player.get_time()
+            results.append(easy_dict)
+        if len(model.playersRandom) != 0:
+            rand_dict = {}
+            for player in model.playersRandom:
+                rand_dict[player.get_nome()] = player.get_time()
+            results.append(rand_dict)
+        with open('historico.csv', 'w') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=field_names)
+            writer.writeheader()
+            writer.writerows(results)
 
 
 class To_txt(TypeFile):
     def create_file(self, model):
-        pass
+        with open('historico.txt', 'w') as arquivo:
+            arquivo.write('Histórico dos Jogadores da Sessão\n')
+            arquivo.write('Nome - Tempo de Jogo\n')
+            if len(model.playersEasy) != 0:
+                arquivo.write('EASY:\n')
+                for player in model.playersEasy:
+                    arquivo.write(str(player.get_nome()) + ' - ' + str(player.get_time()) + '\n')
+
+            if len(model.playersMid) != 0:
+                arquivo.write('MID:\n')
+                for player in model.playersMid:
+                    arquivo.write(str(player.get_nome()) + ' - ' + str(player.get_time()) + '\n')
+
+            if len(model.playersHard) != 0:
+                arquivo.write('HARD:\n')
+                for player in model.playersHard:
+                    arquivo.write(str(player.get_nome()) + ' - ' + str(player.get_time()) + '\n')
+
+            if len(model.playersRandom) != 0:
+                arquivo.write('RANDOM:\n')
+                for player in model.playersRandom:
+                    arquivo.write(str(player.get_nome()) + ' - ' + str(player.get_time()) + '\n')
+        arquivo.close()
 
 
 """Context to choose option"""

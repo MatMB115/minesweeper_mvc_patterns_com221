@@ -1,4 +1,4 @@
-import model
+from model import To_json, To_txt, To_csv
 
 
 class Controller:
@@ -123,11 +123,13 @@ class Controller:
             pass
 
     def save_as_json(self):
-        self.model.save.strategy = model.To_json()
+        self.model.save.strategy = To_json()
         self.model.save_state()
 
     def save_as_csv(self):
-        pass
+        self.model.save.strategy = To_csv()
+        self.model.save_state()
 
     def save_as_txt(self):
-        pass
+        self.model.save.strategy = To_txt()
+        self.model.save_state()
