@@ -1,6 +1,7 @@
 from random import randint
 from cell import Cell
 from abc import ABC, abstractmethod
+import json
 
 
 class Model:
@@ -25,7 +26,7 @@ class Model:
         self.playersMid = []
         self.playersHard = []
         self.playersRandom = []
-        self.save = Strategy
+        self.save = SaveGame()
 
     """Getter and setter"""
 
@@ -245,7 +246,7 @@ class Model:
                     self.flagged_cells -= 1
 
     def store_played_games(self):
-        if self.MINES_MAX == 3:
+        if self.MINES_MAX == 10:
             nome = self.controller.get_text_input("Noobie mode", "Insert your name")
             time = self.seconds_from_start
             self.playersEasy.append(Player(nome, time))
@@ -262,6 +263,9 @@ class Model:
             time = self.seconds_from_start
             self.playersRandom.append(Player(nome, time))
 
+    def save_state(self):
+        self.save.start_save(self)
+
 
 class Player:
     def __init__(self, nome, time):
@@ -275,22 +279,84 @@ class Player:
         return self.time
 
 
-class Strategy(ABC):
+"""Fake interface in python """
+
+
+class TypeFile(ABC):
     @abstractmethod
-    def create_file(self):
+    def create_file(self, model):
         pass
 
 
-class to_json(Strategy):
-    def create_file(self):
+"""Concrete strategies implements"""
+
+
+class To_json(TypeFile):
+    def create_file(self, model):
+        print("OK")
+        if len(model.playersEasy) != 0:
+            easy_dict = {
+                "GameMode": "Easy",
+                "NamePlayer": "PlayTime"
+            }
+            for player in model.playersEasy:
+                easy_dict[player.get_nome()] = player.get_time()
+            json_obj = json.dumps(easy_dict, indent=4)
+            with open("historico.json", "a") as outfile:
+                outfile.write(json_obj)
+        if len(model.playersMid) != 0:
+            mid_dict = {
+                "GameMode": "Mid",
+                "NamePlayer": "PlayTime"
+            }
+            for player in model.playersMid:
+                mid_dict[player.get_nome()] = player.get_time()
+            json_obj = json.dumps(mid_dict, indent=4)
+            with open("historico.json", "a") as outfile:
+                outfile.write(json_obj)
+        if len(model.playersHard) != 0:
+            hard_dict = {
+                "GameMode": "Hard",
+                "NamePlayer": "PlayTime"
+            }
+            for player in model.playersHard:
+                hard_dict[player.get_nome()] = player.get_time()
+            json_obj = json.dumps(hard_dict, indent=4)
+            with open("historico.json", "a") as outfile:
+                outfile.write(json_obj)
+        if len(model.playersRandom) != 0:
+            rand_dict = {
+                "GameMode": "Random",
+                "NamePlayer": "PlayTime"
+            }
+            for player in model.playersRandom:
+                rand_dict[player.get_nome()] = player.get_time()
+            json_obj = json.dumps(rand_dict, indent=4)
+            with open("historico.json", "a") as outfile:
+                outfile.write(json_obj)
+
+
+class To_csv(TypeFile):
+    def create_file(self, model):
         pass
 
 
-class to_csv(Strategy):
-    def create_file(self):
+class To_xml(TypeFile):
+    def create_file(self, model):
         pass
 
 
-class to_xml(Strategy):
-    def create_file(self):
-        pass
+"""Context to choose option"""
+
+
+class SaveGame:
+    strategy: TypeFile
+
+    def __init__(self, strategy: TypeFile = None):
+        if strategy is not None:
+            self.strategy = strategy
+        else:
+            self.strategy = To_json()
+
+    def start_save(self, model):
+        self.strategy.create_file(model)

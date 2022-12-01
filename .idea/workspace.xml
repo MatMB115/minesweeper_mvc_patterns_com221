@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="botões para salvar como json, csv e xml o histórico">
+    <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="trocando lista por dicionário">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minesweeper/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minesweeper/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minesweeper/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,17 +41,21 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2HpRQGvg1Cbnhdk1gKjG4LhnXhC" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/maysu/Documentos/github/Trab_OO2_Campo_Minado/minesweeper&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/home/maysu/Documentos/github/Trab_OO2_Campo_Minado/minesweeper"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/minesweeper" />
@@ -184,7 +190,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669820701314</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="trocando lista por dicionário">
+      <created>1669861418407</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1669861418407</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,6 +224,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="MVC + criando as classes" />
     <MESSAGE value="aprendendo a criar janelas com Qt5" />
     <MESSAGE value="add modo facil com registro do resultado em MVC" />
@@ -224,6 +238,7 @@
     <MESSAGE value="refatorando, add random mode e organizando a view" />
     <MESSAGE value="erro corrigido, pateta errou nome da funcao" />
     <MESSAGE value="botões para salvar como json, csv e xml o histórico" />
-    <option name="LAST_COMMIT_MESSAGE" value="botões para salvar como json, csv e xml o histórico" />
+    <MESSAGE value="trocando lista por dicionário" />
+    <option name="LAST_COMMIT_MESSAGE" value="trocando lista por dicionário" />
   </component>
 </project>

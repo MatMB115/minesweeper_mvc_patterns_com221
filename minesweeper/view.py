@@ -86,7 +86,7 @@ class View(QMainWindow):
             exit()
 
     def input_box_int(self, title, info):
-        metric_num, status = QInputDialog.getInt(self, title, info, min=6)
+        metric_num, status = QInputDialog.getInt(self, title, info, min=1)
         if status:
             return metric_num
         else:

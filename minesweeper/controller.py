@@ -1,3 +1,6 @@
+import model
+
+
 class Controller:
     """Controller class for the connection between field Model and View."""
 
@@ -120,7 +123,8 @@ class Controller:
             pass
 
     def save_as_json(self):
-        pass
+        self.model.save.strategy = model.To_json()
+        self.model.save_state()
 
     def save_as_csv(self):
         pass
