@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="erro corrigido, pateta errou nome da funcao">
+    <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="botões para salvar como json, csv e xml o histórico">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minesweeper/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minesweeper/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minesweeper/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669762774949</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="botões para salvar como json, csv e xml o histórico">
+      <created>1669820701314</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1669820701314</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -218,6 +223,7 @@
     <MESSAGE value="removendo observer e finalizando versao basica da jogo" />
     <MESSAGE value="refatorando, add random mode e organizando a view" />
     <MESSAGE value="erro corrigido, pateta errou nome da funcao" />
-    <option name="LAST_COMMIT_MESSAGE" value="erro corrigido, pateta errou nome da funcao" />
+    <MESSAGE value="botões para salvar como json, csv e xml o histórico" />
+    <option name="LAST_COMMIT_MESSAGE" value="botões para salvar como json, csv e xml o histórico" />
   </component>
 </project>

@@ -55,14 +55,14 @@ class Model:
     def new_game(self, game_level=0):
         """Store the callback functions in list"""
         self.flag_win = 0
-        levels = [
-            self.empty_func,
-            self.new_game_easy,
-            self.new_game_mid,
-            self.new_game_hard,
-            self.new_game_random
-        ]
-        levels[game_level]()
+        levels = {
+            0: self.empty_func,
+            1: self.new_game_easy,
+            2: self.new_game_mid,
+            3: self.new_game_hard,
+            4: self.new_game_random
+        }
+        levels.get(game_level)()
         self.controller.set_start_button()
         self.controller.stop_timer()
         self.controller.clear_timer()
@@ -282,10 +282,15 @@ class Strategy(ABC):
 
 
 class to_json(Strategy):
-    def create_file(self, ):
+    def create_file(self):
         pass
 
 
 class to_csv(Strategy):
+    def create_file(self):
+        pass
+
+
+class to_xml(Strategy):
     def create_file(self):
         pass
