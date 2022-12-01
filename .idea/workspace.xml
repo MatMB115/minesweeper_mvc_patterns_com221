@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="trocando lista por dicionário">
+    <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="grosso do histórico pra json">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minesweeper/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minesweeper/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/model.py" afterDir="false" />
@@ -48,14 +48,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/maysu/Documentos/github/Trab_OO2_Campo_Minado/minesweeper"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/maysu/Documentos/github/Trab_OO2_Campo_Minado/minesweeper&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/minesweeper" />
@@ -197,7 +197,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669861418407</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="grosso do histórico pra json">
+      <created>1669882075722</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1669882075723</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -239,6 +246,7 @@
     <MESSAGE value="erro corrigido, pateta errou nome da funcao" />
     <MESSAGE value="botões para salvar como json, csv e xml o histórico" />
     <MESSAGE value="trocando lista por dicionário" />
-    <option name="LAST_COMMIT_MESSAGE" value="trocando lista por dicionário" />
+    <MESSAGE value="grosso do histórico pra json" />
+    <option name="LAST_COMMIT_MESSAGE" value="grosso do histórico pra json" />
   </component>
 </project>

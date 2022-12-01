@@ -79,7 +79,7 @@ class Model:
     def new_game_easy(self):
         self.FIELD_WIDTH = 9
         self.FIELD_HEIGHT = 9
-        self.MINES_MAX = 10
+        self.MINES_MAX = 3
 
     def new_game_mid(self):
         self.FIELD_WIDTH = 16
@@ -246,7 +246,7 @@ class Model:
                     self.flagged_cells -= 1
 
     def store_played_games(self):
-        if self.MINES_MAX == 10:
+        if self.MINES_MAX == 3:
             nome = self.controller.get_text_input("Noobie mode", "Insert your name")
             time = self.seconds_from_start
             self.playersEasy.append(Player(nome, time))
@@ -293,47 +293,34 @@ class TypeFile(ABC):
 
 class To_json(TypeFile):
     def create_file(self, model):
-        print("OK")
+        json_dict = {}
         if len(model.playersEasy) != 0:
-            easy_dict = {
-                "GameMode": "Easy",
-                "NamePlayer": "PlayTime"
-            }
+            easy_dict = {"NamePlayer": "PlayTime"}
             for player in model.playersEasy:
                 easy_dict[player.get_nome()] = player.get_time()
-            json_obj = json.dumps(easy_dict, indent=4)
-            with open("historico.json", "a") as outfile:
-                outfile.write(json_obj)
+            json_dict["Easy"] = easy_dict
+
         if len(model.playersMid) != 0:
-            mid_dict = {
-                "GameMode": "Mid",
-                "NamePlayer": "PlayTime"
-            }
+            mid_dict = {"NamePlayer": "PlayTime"}
             for player in model.playersMid:
                 mid_dict[player.get_nome()] = player.get_time()
-            json_obj = json.dumps(mid_dict, indent=4)
-            with open("historico.json", "a") as outfile:
-                outfile.write(json_obj)
+            json_dict["Mid"] = mid_dict
+
         if len(model.playersHard) != 0:
-            hard_dict = {
-                "GameMode": "Hard",
-                "NamePlayer": "PlayTime"
-            }
+            hard_dict = {"NamePlayer": "PlayTime"}
             for player in model.playersHard:
                 hard_dict[player.get_nome()] = player.get_time()
-            json_obj = json.dumps(hard_dict, indent=4)
-            with open("historico.json", "a") as outfile:
-                outfile.write(json_obj)
+            json_dict["Hard"] = hard_dict
+
         if len(model.playersRandom) != 0:
-            rand_dict = {
-                "GameMode": "Random",
-                "NamePlayer": "PlayTime"
-            }
+            rand_dict = {"NamePlayer": "PlayTime"}
             for player in model.playersRandom:
                 rand_dict[player.get_nome()] = player.get_time()
-            json_obj = json.dumps(rand_dict, indent=4)
-            with open("historico.json", "a") as outfile:
-                outfile.write(json_obj)
+            json_dict["Random"] = rand_dict
+
+        json_obj = json.dumps(json_dict, indent=4)
+        with open("historico.json", "a") as outfile:
+            outfile.write(json_obj)
 
 
 class To_csv(TypeFile):
@@ -341,7 +328,7 @@ class To_csv(TypeFile):
         pass
 
 
-class To_xml(TypeFile):
+class To_txt(TypeFile):
     def create_file(self, model):
         pass
 

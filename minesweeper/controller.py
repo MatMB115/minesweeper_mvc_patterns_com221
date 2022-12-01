@@ -129,5 +129,5 @@ class Controller:
     def save_as_csv(self):
         pass
 
-    def save_as_xml(self):
+    def save_as_txt(self):
         pass

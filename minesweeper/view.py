@@ -71,9 +71,9 @@ class View(QMainWindow):
         save_csv.triggered.connect(self.controller.save_as_csv)
         self.savemenu.addAction(save_csv)
 
-        save_xml = QAction("to XML", self)
-        save_xml.triggered.connect(self.controller.save_as_xml)
-        self.savemenu.addAction(save_xml)
+        save_txt = QAction("to TXT", self)
+        save_txt.triggered.connect(self.controller.save_as_txt)
+        self.savemenu.addAction(save_txt)
 
     def create_top_box(self):
         self.top_box = TopBox(self.controller)
