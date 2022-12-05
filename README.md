@@ -68,7 +68,85 @@ O jogo conta com 4 classes principais além da main, a matriz do campo é compos
 
 ---
 ## Strategy :thinking:
-Para desenvolver o sistema responsável por salvar o histórico da sessão dos jogadores foi...
+Para desenvolver o sistema responsável por salvar o histórico da sessão dos jogadores vamos exemplicar sucintamente demonstrando a implementação de um exemplo do histórico e, em seguida, as chamadas das funções...
+
+---
+Implementação:
+
+    -> Classe para o arquivo JSON
+    
+    class To_json(TypeFile):
+    def create_file(self, model):
+        json_dict = {}
+        if len(model.playersEasy) != 0:
+            easy_dict = {"NamePlayer": "PlayTime"}
+            for player in model.playersEasy:
+                easy_dict[player.get_nome()] = player.get_time()
+            json_dict["Easy"] = easy_dict
+
+        if len(model.playersMid) != 0:
+            mid_dict = {"NamePlayer": "PlayTime"}
+            for player in model.playersMid:
+                mid_dict[player.get_nome()] = player.get_time()
+            json_dict["Mid"] = mid_dict
+
+        if len(model.playersHard) != 0:
+            hard_dict = {"NamePlayer": "PlayTime"}
+            for player in model.playersHard:
+                hard_dict[player.get_nome()] = player.get_time()
+            json_dict["Hard"] = hard_dict
+
+        if len(model.playersRandom) != 0:
+            rand_dict = {"NamePlayer": "PlayTime"}
+            for player in model.playersRandom:
+                rand_dict[player.get_nome()] = player.get_time()
+            json_dict["Random"] = rand_dict
+
+        json_obj = json.dumps(json_dict, indent=4)
+        with open("historico.json", "w") as outfile:
+            outfile.write(json_obj)
+        outfile.close()
+        
+        
+        -> Classe para Salvar o Jogo
+        
+        class SaveGame:
+    strategy: TypeFile
+
+    def __init__(self, strategy: TypeFile = None):
+        if strategy is not None:
+            self.strategy = strategy
+        else:
+            self.strategy = To_json()
+
+    def start_save(self, model):
+        self.strategy.create_file(model)
+        
+    
+---
+Imagem do Resultado:
+ 
+ 
+![image](https://user-images.githubusercontent.com/84544053/205668163-7aaf6d81-5040-4708-a088-0ed29a36b87a.png)
+
+
+---
+Funções:
+
+    -> Salvar no formato JSON
+        def save_as_json(self):
+        self.model.save.strategy = To_json()
+        self.model.save_state()
+        
+     -> Salvar no formato CSV
+        def save_as_csv(self):
+        self.model.save.strategy = To_csv()
+        self.model.save_state()
+        
+      -> Salvar no formato TXT
+        def save_as_txt(self):
+        self.model.save.strategy = To_txt()
+        self.model.save_state()
 
 ---
 ## Pré-requisitos e configuração :hammer_and_wrench:
@@ -120,7 +198,18 @@ $ py main.py
 
 ---
 ## Layout :art:
-Imagens do jogo aqui
+![image](https://user-images.githubusercontent.com/84544053/205647262-0156348f-290f-4044-a404-4c28f3e5a49b.png)
+![image](https://user-images.githubusercontent.com/84544053/205645834-4e1a015b-0001-4611-bcc8-b1cb1af386c3.png)
+![image](https://user-images.githubusercontent.com/84544053/205646117-6d1b73e7-bff6-4f15-9b4e-031a7beffee4.png)
+![image](https://user-images.githubusercontent.com/84544053/205646550-20fb1d7a-4d39-4dc4-b3c9-aa44fdba7182.png)
+![image](https://user-images.githubusercontent.com/84544053/205647466-ae247fe5-30fd-4a0b-869b-55559832508a.png)
+![image](https://user-images.githubusercontent.com/84544053/205651917-a7d9d6bf-1376-4186-8661-1ab502b63bf3.png)
+![image](https://user-images.githubusercontent.com/84544053/205646782-f06088b4-2209-4bb8-bc54-2bb9b31cc0c7.png)
+![image](https://user-images.githubusercontent.com/84544053/205647878-fb04ab1c-3ae8-4a74-8571-26aa6a993742.png)
+![image](https://user-images.githubusercontent.com/84544053/205651671-26ba86c0-26b9-4531-9067-d37476a60d45.png)
+
+
+
 
 ---
 ## Tecnologias :technologist:
