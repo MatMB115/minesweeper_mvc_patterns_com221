@@ -63,15 +63,55 @@ As orientações estão divididas nos seguintes tópicos:
 ## MVC :
 
 O jogo conta com 4 classes principais além da main, a matriz do campo é composta pela classe cell...
+
 ![MVCMinesweep](/class_diagram.png)
 
 ---
 ## Strategy :thinking:
+Para desenvolver o sistema responsável por salvar o histórico da sessão dos jogadores foi...
 
 ---
 ## Pré-requisitos e configuração :hammer_and_wrench:
 No geral, para executar a aplicação é recomendado que o sistema já possua:
+- [Python3](https://www.python.org/downloads/);
+- Biblioteca Qt5;
+- pyInstaller (se desejar gerar um executável para seu sistema);
+- [Git](https://git-scm.com/downloads) (opcional caso deseje clonar o repositório);
+- [Visual Studio Code](https://code.visualstudio.com/download) (se desejar executar o jogo pelo terminal).
 
+Vale ressaltar que um executável para Windows será disponilibizado na path [Windows](/Windows). 
+
+O campo minado foi testado nos seguintes sistemas operacionais (ambientes de desenvolvimento):
+- Windows 10;
+- Manjaro KDE;
+- Ubuntu 18.04 LTS.
+
+### PyQt5
+
+Para instalar a biblioteca em ambos os ambientes supracitados será necessário abrir um terminal (tanto o bash no Visual Studio Code quanto PowerShell no Windows Terminal servirão). Execute o comando abaixo para instalar a biblioteca:
+>pip install pyqt5
+
+Para iniciar o jogo pelo terminal deve-se seguir as instruções abaixo.
+
+```bash
+
+# Clone este repositório com
+$ git clone https://github.com/MatMB115/minesweeper_mvc_patterns_com221
+# ou
+$ git clone git@github.com:MatMB115/minesweeper_mvc_patterns_com221.git
+
+# Acesse a pasta do projeto no seu terminal/cmd
+$ cd minesweeper_mvc_patterns_com221
+
+# Acesse a pasta do jogo
+$ cd minesweeper
+
+# Chame o interpretador do python 3 com o main.py
+$ python3 main.py
+
+# O jogo será iniciado corretamente
+
+```
 
 ---
 ## Layout :art:
