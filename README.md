@@ -107,7 +107,12 @@ $ cd minesweeper_mvc_patterns_com221
 $ cd minesweeper
 
 # Chame o interpretador do python 3 com o main.py
+
+# Para linux
 $ python3 main.py
+
+# Para Windows
+$ py main.py
 
 # O jogo será iniciado corretamente
 
