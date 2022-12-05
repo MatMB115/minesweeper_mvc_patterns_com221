@@ -60,93 +60,34 @@ As orientações estão divididas nos seguintes tópicos:
  - [x] Exportar save para TXT.
 
 ---
-## MVC :
+## MVC:
 
-O jogo conta com 4 classes principais além da main, a matriz do campo é composta pela classe cell...
+O núcleo da aplicação foi construída nas classes Model, View, Controller e Cell. 
+
+- **Cell**: classe de suma importância, compõe as células que geram um campo minado e armazena os atributos e funções essenciais para validar a lógica do jogo;
+
+- **Model**:
+
+- **Controller**:
+
+- **View**:
+
 
 ![MVCMinesweep](/class_diagram.png)
 
 ---
 ## Strategy :thinking:
-Para desenvolver o sistema responsável por salvar o histórico da sessão dos jogadores vamos exemplicar sucintamente demonstrando a implementação de um exemplo do histórico e, em seguida, as chamadas das funções...
+Conforme o UML acima, foi necessário criar uma classe de contexto SaveGame, uma vez que python não reserva uma palavra chave para interfaces. Essa classe fica incumbida de conectar a model com a implementação do strategy pela classe (interface) TypeFile, permitindo que o usuário troque a implementação concreta do atributo TypeFile na model em tempo de execução. 
 
----
-Implementação:
-
-    -> Classe para o arquivo JSON
+O jogo permite que o usuário exporte o histórico de vitórias com o tempo de jogo para os arquivos do tipo: JSON, CSV e TXT.
     
-    class To_json(TypeFile):
-    def create_file(self, model):
-        json_dict = {}
-        if len(model.playersEasy) != 0:
-            easy_dict = {"NamePlayer": "PlayTime"}
-            for player in model.playersEasy:
-                easy_dict[player.get_nome()] = player.get_time()
-            json_dict["Easy"] = easy_dict
+Export do save como JSON:
 
-        if len(model.playersMid) != 0:
-            mid_dict = {"NamePlayer": "PlayTime"}
-            for player in model.playersMid:
-                mid_dict[player.get_nome()] = player.get_time()
-            json_dict["Mid"] = mid_dict
+<p align="center">
+  <img alt="export_json" title="#export_json" src="https://user-images.githubusercontent.com/84544053/205668163-7aaf6d81-5040-4708-a088-0ed29a36b87a.png" width="500px">
+</p>
 
-        if len(model.playersHard) != 0:
-            hard_dict = {"NamePlayer": "PlayTime"}
-            for player in model.playersHard:
-                hard_dict[player.get_nome()] = player.get_time()
-            json_dict["Hard"] = hard_dict
-
-        if len(model.playersRandom) != 0:
-            rand_dict = {"NamePlayer": "PlayTime"}
-            for player in model.playersRandom:
-                rand_dict[player.get_nome()] = player.get_time()
-            json_dict["Random"] = rand_dict
-
-        json_obj = json.dumps(json_dict, indent=4)
-        with open("historico.json", "w") as outfile:
-            outfile.write(json_obj)
-        outfile.close()
-        
-        
-        -> Classe para Salvar o Jogo
-        
-        class SaveGame:
-    strategy: TypeFile
-
-    def __init__(self, strategy: TypeFile = None):
-        if strategy is not None:
-            self.strategy = strategy
-        else:
-            self.strategy = To_json()
-
-    def start_save(self, model):
-        self.strategy.create_file(model)
-        
-    
----
-Imagem do Resultado:
- 
- 
-![image](https://user-images.githubusercontent.com/84544053/205668163-7aaf6d81-5040-4708-a088-0ed29a36b87a.png)
-
-
----
-Funções:
-
-    -> Salvar no formato JSON
-        def save_as_json(self):
-        self.model.save.strategy = To_json()
-        self.model.save_state()
-        
-     -> Salvar no formato CSV
-        def save_as_csv(self):
-        self.model.save.strategy = To_csv()
-        self.model.save_state()
-        
-      -> Salvar no formato TXT
-        def save_as_txt(self):
-        self.model.save.strategy = To_txt()
-        self.model.save_state()
+![image]()
 
 ---
 ## Pré-requisitos e configuração :hammer_and_wrench:
@@ -161,6 +102,7 @@ Vale ressaltar que um executável para Windows será disponilibizado na path [Wi
 
 O campo minado foi testado nos seguintes sistemas operacionais (ambientes de desenvolvimento):
 - Windows 10;
+- Windows 11;
 - Manjaro KDE;
 - Ubuntu 18.04 LTS.
 
@@ -198,18 +140,27 @@ $ py main.py
 
 ---
 ## Layout :art:
-![image](https://user-images.githubusercontent.com/84544053/205647262-0156348f-290f-4044-a404-4c28f3e5a49b.png)
-![image](https://user-images.githubusercontent.com/84544053/205645834-4e1a015b-0001-4611-bcc8-b1cb1af386c3.png)
-![image](https://user-images.githubusercontent.com/84544053/205646117-6d1b73e7-bff6-4f15-9b4e-031a7beffee4.png)
-![image](https://user-images.githubusercontent.com/84544053/205646550-20fb1d7a-4d39-4dc4-b3c9-aa44fdba7182.png)
-![image](https://user-images.githubusercontent.com/84544053/205647466-ae247fe5-30fd-4a0b-869b-55559832508a.png)
-![image](https://user-images.githubusercontent.com/84544053/205651917-a7d9d6bf-1376-4186-8661-1ab502b63bf3.png)
-![image](https://user-images.githubusercontent.com/84544053/205646782-f06088b4-2209-4bb8-bc54-2bb9b31cc0c7.png)
-![image](https://user-images.githubusercontent.com/84544053/205647878-fb04ab1c-3ae8-4a74-8571-26aa6a993742.png)
-![image](https://user-images.githubusercontent.com/84544053/205651671-26ba86c0-26b9-4531-9067-d37476a60d45.png)
+O jogo conta com uma tela principal que possui o campo minado usando assets inspirados no grandioso Minesweeper do Windows 95, um contador de bombas, um botão de status/start e um timer. Há também três botões na menubar para mudar o modo de jogo, exportar o histórico e sair da aplicação.
 
+<p align="center">
+  <img alt="RepiMe" title="#First" src="https://user-images.githubusercontent.com/84544053/205647262-0156348f-290f-4044-a404-4c28f3e5a49b.png" width="200px">
 
+  <img alt="RepiMe" title="#HomeNoLogin" src="https://user-images.githubusercontent.com/84544053/205645834-4e1a015b-0001-4611-bcc8-b1cb1af386c3.png" width="200px">
+  
+  <img alt="RepiMe" title="#HomeLogin" src="https://user-images.githubusercontent.com/84544053/205646117-6d1b73e7-bff6-4f15-9b4e-031a7beffee4.png" width="200px">
 
+  <img alt="RepiMe" title="#UserRegister" src="https://user-images.githubusercontent.com/84544053/205646550-20fb1d7a-4d39-4dc4-b3c9-aa44fdba7182.png" width="200px">
+
+  <img alt="RepiMe" title="#UserRegister2" src="https://user-images.githubusercontent.com/84544053/205647466-ae247fe5-30fd-4a0b-869b-55559832508a.png" width="200px">
+  
+  <img alt="RepiMe" title="#VagaRegist" src="https://user-images.githubusercontent.com/84544053/205647878-fb04ab1c-3ae8-4a74-8571-26aa6a993742.png" width="200px">
+</p>
+
+<p align="center">
+  <img alt="RepiMe" title="#UserRegister3" src="https://user-images.githubusercontent.com/84544053/205651917-a7d9d6bf-1376-4186-8661-1ab502b63bf3.png" width="385px">
+
+  <img alt="RepiMe" title="#VagaRegist2" src="https://user-images.githubusercontent.com/84544053/205651671-26ba86c0-26b9-4531-9067-d37476a60d45.png" width="400px">
+</p>
 
 ---
 ## Tecnologias :technologist:
@@ -219,6 +170,11 @@ Aplicação:
 
     -> Python 3.10.8
     - pyQt5
+    - pip
+    - pyInstaller
+    - Virtual environment
+    - csv
+    - json
 ---
 Utilitários:
 
