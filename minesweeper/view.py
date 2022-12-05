@@ -17,7 +17,7 @@ class View(QMainWindow):
         self.menubar = None
         self.main_widget = None
         self.controller = controller
-        self.controller.setView(self)
+        self.controller.set_view(self)
         self.controller.start_new_game()
         self.createMainUI()
 
@@ -86,7 +86,7 @@ class View(QMainWindow):
             exit()
 
     def input_box_int(self, title, info):
-        metric_num, status = QInputDialog.getInt(self, title, info, min=1)
+        metric_num, status = QInputDialog.getInt(self, title, info, min=6)
         if status:
             return metric_num
         else:

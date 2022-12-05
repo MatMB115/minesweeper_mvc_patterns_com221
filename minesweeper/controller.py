@@ -9,7 +9,7 @@ class Controller:
         self.model = model
         self.model.set_controller(self)
 
-    def setView(self, view):
+    def set_view(self, view):
         self.view = view
 
     def left_click(self, x, y):
