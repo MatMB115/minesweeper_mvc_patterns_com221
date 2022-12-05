@@ -26,7 +26,7 @@ class View(QMainWindow):
         self.setFixedWidth(32 * self.controller.get_field_width() + 20)
         self.setFixedHeight(32 * self.controller.get_field_height() + 90)
         self.setWindowTitle("Minesweeper")
-        self.setWindowIcon(QIcon("img/flagged.gif"))
+        self.setWindowIcon(QIcon("img/logoMine.gif"))
         self.create_menubar()
         self.create_top_box()
         self.main_widget = QWidget()
