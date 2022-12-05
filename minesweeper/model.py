@@ -80,7 +80,7 @@ class Model:
     def new_game_easy(self):
         self.FIELD_WIDTH = 9
         self.FIELD_HEIGHT = 9
-        self.MINES_MAX = 3
+        self.MINES_MAX = 10
 
     def new_game_mid(self):
         self.FIELD_WIDTH = 16
@@ -247,7 +247,7 @@ class Model:
                     self.flagged_cells -= 1
 
     def store_played_games(self):
-        if self.MINES_MAX == 3:
+        if self.MINES_MAX == 10:
             nome = self.controller.get_text_input("Noobie mode", "Insert your name")
             time = self.seconds_from_start
             self.playersEasy.append(Player(nome, time))
@@ -322,26 +322,37 @@ class To_json(TypeFile):
         json_obj = json.dumps(json_dict, indent=4)
         with open("historico.json", "w") as outfile:
             outfile.write(json_obj)
+        outfile.close()
 
 
 class To_csv(TypeFile):
     def create_file(self, model):
-        field_names = ['Nome', 'Tempo de Jogo']
-        results = []
-        if len(model.playersEasy) != 0:
-            easy_dict = {}
-            for player in model.playersEasy:
-                easy_dict[player.get_nome()] = player.get_time()
-            results.append(easy_dict)
-        if len(model.playersRandom) != 0:
-            rand_dict = {}
-            for player in model.playersRandom:
-                rand_dict[player.get_nome()] = player.get_time()
-            results.append(rand_dict)
-        with open('historico.csv', 'w') as csvfile:
+
+        field_names = ['nome', 'tempo', 'dificuldade']
+        with open('historico.csv', 'w', encoding='UTF8') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=field_names)
             writer.writeheader()
-            writer.writerows(results)
+
+            if len(model.playersEasy) != 0:
+                for player in model.playersEasy:
+                    aux = [{'nome': player.get_nome(), 'tempo': player.get_time(), 'dificuldade': 'easy'}]
+                    writer.writerows(aux)
+
+            if len(model.playersMid) != 0:
+                for player in model.playersMid:
+                    aux = [{'nome': player.get_nome(), 'tempo': player.get_time(), 'dificuldade': 'mid'}]
+                    writer.writerows(aux)
+
+            if len(model.playersHard) != 0:
+                for player in model.playersHard:
+                    aux = [{'nome': player.get_nome(), 'tempo': player.get_time(), 'dificuldade': 'hard'}]
+                    writer.writerows(aux)
+
+            if len(model.playersRandom) != 0:
+                for player in model.playersRandom:
+                    aux = [{'nome': player.get_nome(), 'tempo': player.get_time(), 'dificuldade': 'random'}]
+                    writer.writerows(aux)
+        csvfile.close()
 
 
 class To_txt(TypeFile):

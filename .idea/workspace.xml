@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="json formatado bunitin pro historico">
+    <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="historico txt feito e csv quebrando">
       <change afterPath="$PROJECT_DIR$/minesweeper/historico.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minesweeper/controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minesweeper/historico.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/minesweeper/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -256,6 +254,7 @@
     <MESSAGE value="trocando lista por dicionário" />
     <MESSAGE value="grosso do histórico pra json" />
     <MESSAGE value="json formatado bunitin pro historico" />
-    <option name="LAST_COMMIT_MESSAGE" value="json formatado bunitin pro historico" />
+    <MESSAGE value="historico txt feito e csv quebrando" />
+    <option name="LAST_COMMIT_MESSAGE" value="historico txt feito e csv quebrando" />
   </component>
 </project>
