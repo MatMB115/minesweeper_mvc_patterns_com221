@@ -87,8 +87,6 @@ Export do save como JSON:
   <img alt="export_json" title="#export_json" src="https://user-images.githubusercontent.com/84544053/205668163-7aaf6d81-5040-4708-a088-0ed29a36b87a.png" width="500px">
 </p>
 
-![image]()
-
 ---
 ## Pré-requisitos e configuração :hammer_and_wrench:
 No geral, para executar a aplicação é recomendado que o sistema já possua:
