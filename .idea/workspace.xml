@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="historico txt feito e csv quebrando">
-      <change afterPath="$PROJECT_DIR$/minesweeper/historico.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minesweeper/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/minesweeper/model.py" afterDir="false" />
-    </list>
+    <list default="true" id="e312c38f-6a4e-40c0-9cac-a1b8e8178b1e" name="Changes" comment="Todos os saves estão funcionando, aparecentemente é a v1 do game" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -210,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669883566896</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Todos os saves estão funcionando, aparecentemente é a v1 do game">
+      <created>1670203141299</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1670203141299</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -255,6 +258,7 @@
     <MESSAGE value="grosso do histórico pra json" />
     <MESSAGE value="json formatado bunitin pro historico" />
     <MESSAGE value="historico txt feito e csv quebrando" />
-    <option name="LAST_COMMIT_MESSAGE" value="historico txt feito e csv quebrando" />
+    <MESSAGE value="Todos os saves estão funcionando, aparecentemente é a v1 do game" />
+    <option name="LAST_COMMIT_MESSAGE" value="Todos os saves estão funcionando, aparecentemente é a v1 do game" />
   </component>
 </project>
