@@ -47,7 +47,6 @@ As orientações estão divididas nos seguintes tópicos:
   - [Layout :art:](#layout-art)
   - [Tecnologias :technologist:](#tecnologias-technologist)
   - [Contribuidores](#contribuidores)
-- [Trab\_OO2\_Campo\_Minado](#trab_oo2_campo_minado)
 
 ---
 ## Funcionalidades :gear:
@@ -196,5 +195,4 @@ Utilitários:
   </tr>
 </table>
 
-# Trab_OO2_Campo_Minado
 Repositório dedicado para o versionamento do campo minado desenvolvido usando os design patterns.
