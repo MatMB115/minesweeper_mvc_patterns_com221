@@ -37,13 +37,17 @@ Conforme os conceitos abordados na disciplina de Programação Orientada Objetos
 
 As orientações estão divididas nos seguintes tópicos:
 
-- [Funcionalidades](#funcionalidades-gear)
-- [MVC](#mvc)
-- [Strategy](#strategy-thinking)
-- [Pré-requisitos e configuração](#pré-requisitos-e-configuração-hammer_and_wrench)
-- [Layout](#layout-art)
-- [Tecnologias](#tecnologias-technologist)
-- [Contribuidores](#contribuidores)
+- [Minesweeper com designs pattern MVC e Strategy](#minesweeper-com-designs-pattern-mvc-e-strategy)
+  - [Sobre](#sobre)
+  - [Funcionalidades :gear:](#funcionalidades-gear)
+  - [MVC:](#mvc)
+  - [Strategy :thinking:](#strategy-thinking)
+  - [Pré-requisitos e configuração :hammer\_and\_wrench:](#pré-requisitos-e-configuração-hammer_and_wrench)
+    - [PyQt5](#pyqt5)
+  - [Layout :art:](#layout-art)
+  - [Tecnologias :technologist:](#tecnologias-technologist)
+  - [Contribuidores](#contribuidores)
+- [Trab\_OO2\_Campo\_Minado](#trab_oo2_campo_minado)
 
 ---
 ## Funcionalidades :gear:
@@ -66,11 +70,11 @@ O núcleo da aplicação foi construída nas classes Model, View, Controller e C
 
 - **Cell**: classe de suma importância, compõe as células que geram um campo minado e armazena os atributos e funções essenciais para validar a lógica do jogo;
 
-- **Model**:
+- **Model**: classe que implementa a lógica do jogo, define a estrutura e as funcionalidades de todo o jogo, desde a definição do que tem no jogo até as dificuldades, formas de salvar e afins;
 
-- **Controller**:
+- **Controller**: A controller funciona como uma ponte entre a View e a Model, seria mais um nível de abstração, fazendo com que a View utilize das funções da Model sem conhecê-la;
 
-- **View**:
+- **View**: A View é a parte estética do projeto, implementa a interface gráfica e processa os eventos e interações do usuário chamando a controller, que por sua vez chama as funções que estão implementadas na Model;
 
 
 ![MVCMinesweep](/class_diagram.png)
@@ -191,3 +195,6 @@ Utilitários:
     <td align="center"><a href="https://github.com/omateusluz"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/78989307?v=4" width="100px;" alt=""/><br /><sub><b>Matheus Luz</b></sub></a><br /><a href="https://github.com/omateusluz" title="RepiMe">:technologist:</a></td>
   </tr>
 </table>
+
+# Trab_OO2_Campo_Minado
+Repositório dedicado para o versionamento do campo minado desenvolvido usando os design patterns.
