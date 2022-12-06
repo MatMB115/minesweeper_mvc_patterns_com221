@@ -47,7 +47,6 @@ As orientações estão divididas nos seguintes tópicos:
   - [Layout :art:](#layout-art)
   - [Tecnologias :technologist:](#tecnologias-technologist)
   - [Contribuidores](#contribuidores)
-- [Trab\_OO2\_Campo\_Minado](#trab_oo2_campo_minado)
 
 ---
 ## Funcionalidades :gear:
@@ -70,11 +69,11 @@ O núcleo da aplicação foi construída nas classes Model, View, Controller e C
 
 - **Cell**: classe de suma importância, compõe as células que geram um campo minado e armazena os atributos e funções essenciais para validar a lógica do jogo;
 
-- **Model**: classe que implementa a lógica do jogo, define a estrutura e as funcionalidades de todo o jogo, desde a definição do que tem no jogo até as dificuldades, formas de salvar e afins;
+- **Model**: classe que implementa a lógica do jogo, define a estrutura e as funcionalidades, desde a definição do que tem no jogo até as dificuldades, formas de salvar, implementação de regras e tudo o que for necessário para o funcionamento do jogo;
 
-- **Controller**: A controller funciona como uma ponte entre a View e a Model, seria mais um nível de abstração, fazendo com que a View utilize das funções da Model sem conhecê-la;
+- **Controller**: A controller funciona como uma ponte entre a View e a Model, seria mais um nível de abstração, fazendo com que a View utilize das funções da Model sem conhecê-las. No caso desse projeto a controller faz a chamada das funções da model quando um evento ocorre na view, por exemplo, se um jogador clica em uma determinada dificuldade na interface da view, ela chama a função da controller que cria um novo jogo nessa dificuldade, todavia, essa função da controller não é a implementa a criação desse novo jogo na nova dificuldade, ela apenas chama as funções da model necessárias para realizar tal tarefa passando os parâmetros da view, como a nova dificuldade;
 
-- **View**: A View é a parte estética do projeto, implementa a interface gráfica e processa os eventos e interações do usuário chamando a controller, que por sua vez chama as funções que estão implementadas na Model;
+- **View**: A View é a parte estética do projeto, implementa a interface gráfica e processa os eventos e interações do usuário chamando a controller, que por sua vez chama as funções que estão implementadas na Model, no nosso projeto toda a implementação da interface gráfica com PyQT está nessa classe;
 
 
 ![MVCMinesweep](/class_diagram.png)
@@ -196,5 +195,4 @@ Utilitários:
   </tr>
 </table>
 
-# Trab_OO2_Campo_Minado
 Repositório dedicado para o versionamento do campo minado desenvolvido usando os design patterns.
