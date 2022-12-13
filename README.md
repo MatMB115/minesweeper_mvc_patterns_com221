@@ -31,8 +31,7 @@ Campo minado guiado pelos padrões de projeto MVC e Strategy. O jogo foi desenvo
 ---
 ## Sobre
 
-Conforme os conceitos abordados na disciplina de Programação Orientada Objetos II da Universidade Federal de Itajubá ministrada pelo professor [Phyllipe](https://github.com/phillima), a equipe desenvolveu um campo minado com a interface gráfica Qt5 aplicando os padrões de projeto MVC e Strategy. 
-
+Conforme os conceitos abordados na disciplina de Programação Orientada Objetos II da Universidade Federal de Itajubá ministrada pelo professor [Phyllipe](https://github.com/phillima), a equipe desenvolveu um campo minado com a interface gráfica Qt5 aplicando os padrões de projeto MVC e Strategy. Acesse o vídeo [Minewsweeper](https://www.youtube.com/watch?v=y144Fic6StE) para uma explicação mais detalhada do processo de desenvolvimento deste projeto. 
 
 
 As orientações estão divididas nos seguintes tópicos:
