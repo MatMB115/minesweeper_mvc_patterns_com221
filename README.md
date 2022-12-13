@@ -40,7 +40,7 @@ As orientações estão divididas nos seguintes tópicos:
 - [Minesweeper com designs pattern MVC e Strategy](#minesweeper-com-designs-pattern-mvc-e-strategy)
   - [Sobre](#sobre)
   - [Funcionalidades :gear:](#funcionalidades-gear)
-  - [MVC:](#mvc)
+  - [MVC](#mvc-bomb)
   - [Strategy :thinking:](#strategy-thinking)
   - [Pré-requisitos e configuração :hammer\_and\_wrench:](#pré-requisitos-e-configuração-hammer_and_wrench)
     - [PyQt5](#pyqt5)
@@ -63,11 +63,11 @@ As orientações estão divididas nos seguintes tópicos:
  - [x] Exportar save para TXT.
 
 ---
-## MVC:
+## MVC :bomb:
 
-O núcleo da aplicação foi construída nas classes Model, View, Controller e Cell. 
+O núcleo da aplicação foi construída nas classes Model, View, Controller e Cell. O MVC INSERIR DESCRIÇÃO E MOTIVO DO USO AQUI TMJ.
 
-- **Cell**: classe de suma importância, compõe as células que geram um campo minado e armazena os atributos e funções essenciais para validar a lógica do jogo;
+- **Cell**: classe de suma importância, compõe as células que geram um campo minado (matriz) e armazena os atributos e funções essenciais para validar a lógica do jogo;
 
 - **Model**: classe que implementa a lógica do jogo, define a estrutura e as funcionalidades, desde a definição do que tem no jogo até as dificuldades, formas de salvar, implementação de regras e tudo o que for necessário para o funcionamento do jogo;
 
