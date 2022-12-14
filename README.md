@@ -194,8 +194,4 @@ Utilitários:
   </tr>
 </table>
 
-## Link de acesso para o vídeo
-
- -> https://www.youtube.com/watch?v=y144Fic6StE
-
 Repositório dedicado para o versionamento do campo minado desenvolvido usando os design patterns.
