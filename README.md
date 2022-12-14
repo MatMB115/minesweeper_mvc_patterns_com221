@@ -64,7 +64,7 @@ As orientações estão divididas nos seguintes tópicos:
 ---
 ## MVC :bomb:
 
-O núcleo da aplicação foi construída nas classes Model, View, Controller e Cell. O MVC INSERIR DESCRIÇÃO E MOTIVO DO USO AQUI TMJ.
+  O núcleo da aplicação foi construída nas classes Model, View, Controller e Cell. O MVC funciona como um padrão de arquitetura de software que melhora a conexão entre as camadas de dados, lógica de negócio e interação com usuário. Através da sua divisão em três componentes, o processo de programação se torna algo mais simples e dinâmico. Como na aplicação do projeto utilizou-se uma interface gráfica, basear-se em um código monolítico juntaria todas as funções em um arquivo somente, o que tornaria a manutenção mais complicada. A fim de revolver este problema, separou-se em model, view e controller onde a criação da interface, a parte estética e sua configuração seriam referenciadas na view, enquanto toda a lógica do programa referenciaria-se na model.
 
 - **Cell**: classe de suma importância, compõe as células que geram um campo minado (matriz) e armazena os atributos e funções essenciais para validar a lógica do jogo;
 
@@ -193,5 +193,9 @@ Utilitários:
     <td align="center"><a href="https://github.com/omateusluz"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/78989307?v=4" width="100px;" alt=""/><br /><sub><b>Matheus Luz</b></sub></a><br /><a href="https://github.com/omateusluz" title="RepiMe">:technologist:</a></td>
   </tr>
 </table>
+
+## Link de acesso para o vídeo
+
+ -> https://www.youtube.com/watch?v=y144Fic6StE
 
 Repositório dedicado para o versionamento do campo minado desenvolvido usando os design patterns.
