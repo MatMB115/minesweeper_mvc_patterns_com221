@@ -93,8 +93,8 @@ Export do save como JSON:
 ## Pré-requisitos e configuração :hammer_and_wrench:
 No geral, para executar a aplicação é recomendado que o sistema já possua:
 - [Python3](https://www.python.org/downloads/);
-- Biblioteca Qt5;
-- pyInstaller (se desejar gerar um executável para seu sistema);
+- [Biblioteca Qt5](https://pypi.org/project/PyQt5);
+- [pyInstaller](https://pyinstaller.org/en/stable) (se desejar gerar um executável para seu sistema);
 - [Git](https://git-scm.com/downloads) (opcional caso deseje clonar o repositório);
 - [Visual Studio Code](https://code.visualstudio.com/download) (se desejar executar o jogo pelo terminal).
 
